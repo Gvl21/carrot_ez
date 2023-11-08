@@ -13,7 +13,8 @@ function App() {
         <div className='App'>
             <header className='App-header'>
                 <p>{msg}</p>
-                <p>짜증</p>
+                <p>할 수 있어요!</p>
+                <p>우리는 할 수 있어! </p>
             </header>
         </div>
     );
