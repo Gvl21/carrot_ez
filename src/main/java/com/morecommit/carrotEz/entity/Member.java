@@ -12,11 +12,8 @@ public class Member {
     @Column(name = "member_id")
     @GeneratedValue
     private Long id;
-    @Column
-    private String name;
 
     private String nickname;
-
 
     // 유일한 값이 들어갈 수 있게 속성 지정. 로그인 시 사용
     @Column(unique = true)
@@ -28,7 +25,5 @@ public class Member {
     private Address address;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-
 
 }
