@@ -9,5 +9,4 @@ public class CarrotEzApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarrotEzApplication.class, args);
 	}
-
 }

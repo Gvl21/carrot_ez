@@ -31,6 +31,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// 개발시 유용한 기능을 제공하는 모듈 : 자동 재시작, 페이지 리로드 등
+	implementation 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {

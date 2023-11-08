@@ -13,6 +13,7 @@ function App() {
         <div className='App'>
             <header className='App-header'>
                 <p>{msg}</p>
+                <p>어서오세요</p>
             </header>
         </div>
     );
