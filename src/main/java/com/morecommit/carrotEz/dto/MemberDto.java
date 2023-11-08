@@ -23,4 +23,6 @@ public class MemberDto {
 
     // @NotEmpty(message = "필수 입력 값 입니다.")
     private String address;
+    
+    // 멤버 컨트롤러를 만들지 않아 오류가 살짝쿵 나요
 }
