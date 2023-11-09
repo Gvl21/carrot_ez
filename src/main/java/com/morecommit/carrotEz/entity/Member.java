@@ -2,9 +2,11 @@ package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.constant.Address;
 import com.morecommit.carrotEz.constant.Role;
+import com.morecommit.carrotEz.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity @Getter @Setter
 public class Member {
@@ -26,6 +28,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
+    public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder){
+        Member member = new Member();
+        return member;
+    }
 
 }
