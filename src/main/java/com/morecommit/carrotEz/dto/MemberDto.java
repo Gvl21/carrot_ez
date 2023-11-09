@@ -13,7 +13,7 @@ public class MemberDto {
 
     // 닉네임
     @NotBlank(message = "필수 입력 값 입니다.")
-    private String name;
+    private String nickname;
 
     // 이메일
      @Email(message = "이메일 형식으로 입력해주세요.")

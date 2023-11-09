@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity @Getter @Setter
 public class Member {
+
     @Id
     @Column(name = "member_id")
     @GeneratedValue
@@ -28,9 +29,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder){
+    public static Member createMember(MemberDto memberDto,
+                                      PasswordEncoder paswordEncoder) {
         Member member = new Member();
         return member;
     }
-
 }
