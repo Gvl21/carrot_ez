@@ -1,28 +1,27 @@
 import { useState, useEffect, React } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Member from './pages/Member';
+import Main from './pages/Main';
 
 function App() {
     const [msg, setMsg] = useState('');
-    const [member, setMember] = useState('');
+    const [newMember, setNewMember] = useState('');
 
-    const getMember = () => {
-        fetch('/member')
-            .then((res) => res.text())
-            .then((txt) => setMember(txt));
-    };
-
-    useEffect(() => {
-        fetch('/hello')
-            .then((res) => res.text())
-            .then((txt) => setMsg(txt));
-    });
+    // const getNewMember = () => {
+    //     fetch('/member')
+    //         .then((res) => res.text())
+    //         .then((txt) => setNewMember(txt));
+    // };
 
     return (
         <div className='App'>
             <header className='App-header'>
-                <p>{msg}</p>
-                <p>{member}</p>
-                <p>어서오세요</p>
-                <button onClick={getMember}>멤버 컨트롤러 api 테스트 </button>
+                <Router>
+                    <Routes>
+                        <Route path='/' element={<Main />} />
+                        <Route path='/member' element={<Member />} />
+                    </Routes>
+                </Router>
             </header>
         </div>
     );
