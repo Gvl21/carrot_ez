@@ -22,18 +22,45 @@ repositories {
 }
 
 dependencies {
+	// 스프링부트 유효성 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// 스프링 시큐리티 테스트
+	testImplementation 'org.springframework.security:spring-security-test'
+	// 스프링 프레임워크 보안 : 인증, 인가, 일반적인 공격 방어
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// 개발 시 유용한 기능을 제공하는 모듈 : 자동 재시작, 페이지 리로드 등
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	// JPA : 자바 영속성 API
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// 타임리프 관련 의존성
+	// View Template : 타임리프 (확장자가 html)
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// 타임리프 레이아웃 방언
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	// 타임리프 스프링 시큐리티 관련 추가 라이브러리
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	// 모델 매핑을 도와주는 라이브러리 modelmapper
+	implementation 'org.modelmapper:modelmapper:3.1.0'
+
+	// Web MVC, REST API, 웹 서버(apache tomcat)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// 롬복 : Annotation으로 코드를 편하게
 	compileOnly 'org.projectlombok:lombok'
+	// database : h2, MySQL
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+	// 테스트 도구 JUnit 5
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 
-	// 개발시 유용한 기능을 제공하는 모듈 : 자동 재시작, 페이지 리로드 등
-	implementation 'org.springframework.boot:spring-boot-devtools'
+	// QueryDsl 패키지 : 스프링부트 3버전 이상
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
 }
 
 tasks.named('test') {
