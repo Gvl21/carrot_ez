@@ -10,12 +10,15 @@ import com.morecommit.carrotEz.repository.MemberRepository;
         import org.springframework.stereotype.Service;
         import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberService/* implements UserDetailsService */{
-    private MemberRepository memberRepository;
+
+    private final MemberRepository memberRepository;
 
     // 회원가입
     public Member saveMember(Member member) {

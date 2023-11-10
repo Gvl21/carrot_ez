@@ -13,7 +13,7 @@ public class Member {
 
     @Id
     @Column(name = "member_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nickname;
@@ -25,9 +25,12 @@ public class Member {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Address address;
-    @Enumerated(EnumType.STRING)
     private Role role;
+
+
+//    @Enumerated(EnumType.STRING)
+//    private Address address;
+
 
     public static Member createMember(MemberDto memberDto /*,
                                       PasswordEncoder paswordEncoder*/) {
@@ -35,6 +38,8 @@ public class Member {
         member.setNickname(memberDto.getNickname());
         member.setEmail(memberDto.getEmail());
         member.setPassword(memberDto.getPassword());
+        member.setRole(Role.USER);
+
         return member;
     }
 }

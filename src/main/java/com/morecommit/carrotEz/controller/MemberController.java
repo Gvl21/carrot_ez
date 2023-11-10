@@ -20,36 +20,36 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-
 public class MemberController {
     private final MemberService memberService;
 //    private final PasswordEncoder passwordEncoder;
-
     @GetMapping("/members/new")
     public String memberForm(Model model){
         model.addAttribute("memberDto", new MemberDto());
+        model.addAttribute("memberDto2", new MemberDto());
+
         return "member/memberForm";
     }
     @PostMapping("/members/new")
     public ResponseEntity memberForm(@Valid @RequestBody MemberDto memberDto,
-                             BindingResult bindingResult, Model model) {
-
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             for (FieldError fieldError : fieldErrors) {
                 String defaultMessage = fieldError.getDefaultMessage();
                 stringBuilder.append(defaultMessage);
+                System.out.println("바인딩");
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(stringBuilder.toString());
         }
         try {
             // 에러 있으면 다시 회원가입 페이지로 돌아감
             Member member = Member.createMember(memberDto/*, passwordEncoder*/);
+
             // 엔티티에서 db에 저장
             memberService.saveMember(member);
         } catch (IllegalStateException e){
-            model.addAttribute("errorMessage", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("service error");
         }
         return ResponseEntity.status(HttpStatus.OK).body("MEMBER");

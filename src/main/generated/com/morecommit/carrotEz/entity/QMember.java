@@ -19,8 +19,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final EnumPath<com.morecommit.carrotEz.constant.Address> address = createEnum("address", com.morecommit.carrotEz.constant.Address.class);
-
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
