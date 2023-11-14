@@ -3,17 +3,18 @@ package com.morecommit.carrotEz.repository;
 import com.morecommit.carrotEz.entity.Fstvl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 public interface FstvlRepository extends JpaRepository<Fstvl, Long> {
-    @Query("""
+@Query("""
        select f from Fstvl f
-        where :localDateTime in (f.startDate, f.endDate)
-         or f.startDate <=
-          (SELECT date_add(:localDateTime, interval 1 month));
-    """)
-    List<Fstvl> findFstvlDetailList(LocalDateTime localDateTime);
+        where (:localDateTime between f.startDate and f.endDate)
+          or f.startDate <= :oneMonthAfter
+""")
+List<Fstvl> findFstvlDetailList(@Param("localDateTime") LocalDateTime localDateTime,
+                                @Param("oneMonthAfter") LocalDateTime oneMonthAfter);
 }

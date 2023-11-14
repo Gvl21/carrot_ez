@@ -14,12 +14,12 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class FstvlController {
+
     private final FstvlService fstvlService;
     @GetMapping("/")
     public String fstvlPost(Model model){
         LocalDateTime currentTime = LocalDateTime.now();
         List<Fstvl> fstvls = fstvlService.showFstvl(currentTime);
-
-        return fstvls;
+        return fstvls.stream().toString();
     }
 }
