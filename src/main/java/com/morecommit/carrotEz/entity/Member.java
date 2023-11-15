@@ -1,6 +1,5 @@
 package com.morecommit.carrotEz.entity;
 
-import com.morecommit.carrotEz.constant.Address;
 import com.morecommit.carrotEz.constant.Role;
 import com.morecommit.carrotEz.dto.MemberDto;
 import jakarta.persistence.*;
@@ -27,9 +26,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String category;
 
-//    @Enumerated(EnumType.STRING)
-//    private Address address;
+    private String  address;
 
 
     public static Member createMember(MemberDto memberDto /*,
@@ -38,6 +37,9 @@ public class Member {
         member.setNickname(memberDto.getNickname());
         member.setEmail(memberDto.getEmail());
         member.setPassword(memberDto.getPassword());
+        member.setAddress(memberDto.getAddress());
+        member.setCategory(memberDto.getCategory());
+
         member.setRole(Role.USER);
 
         return member;
