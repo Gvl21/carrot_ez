@@ -30,7 +30,7 @@ public class MemberDto {
 
      // 주소
      @NotEmpty(message = "필수 입력 값 입니다.")
-     private String address;
+     private String area;
 
      private String category;
 }

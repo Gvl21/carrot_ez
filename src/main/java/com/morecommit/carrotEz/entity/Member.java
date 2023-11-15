@@ -28,7 +28,7 @@ public class Member {
 
     private String category;
 
-    private String  address;
+    private String area;
 
 
     public static Member createMember(MemberDto memberDto /*,
@@ -37,7 +37,7 @@ public class Member {
         member.setNickname(memberDto.getNickname());
         member.setEmail(memberDto.getEmail());
         member.setPassword(memberDto.getPassword());
-        member.setAddress(memberDto.getAddress());
+        member.setArea(memberDto.getArea());
         member.setCategory(memberDto.getCategory());
 
         member.setRole(Role.USER);

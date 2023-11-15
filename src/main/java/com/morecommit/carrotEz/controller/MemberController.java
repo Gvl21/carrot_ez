@@ -23,12 +23,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
 //    private final PasswordEncoder passwordEncoder;
-    @GetMapping("/members/new")
-    public String memberForm(Model model){
-        model.addAttribute("memberDto", new MemberDto());
 
-        return "member/memberForm";
-    }
     @PostMapping("/members/new")
     public ResponseEntity memberForm(@Valid @RequestBody MemberDto memberDto,
                              BindingResult bindingResult) {
