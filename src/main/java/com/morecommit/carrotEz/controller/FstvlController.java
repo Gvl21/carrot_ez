@@ -16,10 +16,13 @@ import java.util.List;
 public class FstvlController {
 
     private final FstvlService fstvlService;
-    @GetMapping("/")
+    @GetMapping("/fstvl")
     public String fstvlPost(Model model){
         LocalDateTime currentTime = LocalDateTime.now();
         List<Fstvl> fstvls = fstvlService.showFstvl(currentTime);
-        return fstvls.stream().toString();
+        String string = fstvls.stream().toString();
+        String name = fstvls.get(0).getName();
+        model.addAttribute("fstvlItems",fstvls.stream().toString());
+        return name;
     }
 }
