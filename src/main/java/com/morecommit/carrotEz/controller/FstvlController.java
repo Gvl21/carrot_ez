@@ -1,5 +1,6 @@
 package com.morecommit.carrotEz.controller;
 
+import com.google.gson.Gson;
 import com.morecommit.carrotEz.entity.Fstvl;
 import com.morecommit.carrotEz.service.FstvlService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,10 @@ public class FstvlController {
 
     private final FstvlService fstvlService;
     @GetMapping("/fstvl")
-    public String fstvlPost(Model model){
+    public List fstvlPost(){
         LocalDateTime currentTime = LocalDateTime.now();
         List<Fstvl> fstvls = fstvlService.showFstvl(currentTime);
-        String string = fstvls.stream().toString();
-        String name = fstvls.get(0).getName();
-        model.addAttribute("fstvlItems",fstvls.stream().toString());
-        return name;
+
+        return fstvls;
     }
 }
