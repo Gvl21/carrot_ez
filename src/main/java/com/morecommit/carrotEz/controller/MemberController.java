@@ -48,11 +48,7 @@ public class MemberController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("MEMBER");
     }
-    // 로그인
-    @GetMapping("/members/login")
-    public String loginMember(){
-        return "/member/memberLoginForm";
-    }
+
 
     @GetMapping("/members/login/error")
     public String loginError(Model model){
