@@ -57,7 +57,7 @@ public class SecurityConfig {
                         // Ant 패턴 경로 요청에 대한 매칭 수행
                         // ** : 모든 파일 및 경로에 대해
                         // 루트 경로는 모두가 접근 가능
-                        .requestMatchers(antMatcher("/**")).permitAll()
+                        .requestMatchers(antMatcher("/")).permitAll()
                         // 정적 파일 css, js, image 등은 모두 접근 가능
                         .requestMatchers(antMatcher("/css/**")).permitAll()
                         // 로그인, 로그아웃, 회원가입 페이지는 모두 접근 가능
@@ -70,7 +70,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/admin/**"))
                         .hasAnyRole("ADMIN")
                         // 그 외 모든 요청은 인증되어야 한다.
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         // 인증되지 않은 사용자가 들어왔을 때 예외처리

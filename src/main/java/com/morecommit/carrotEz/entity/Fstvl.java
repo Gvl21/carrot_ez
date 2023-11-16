@@ -26,5 +26,4 @@ public class Fstvl {
     @Column(name = "fstvl_loc_detail")
     private String locationDtl;
 
-
 }
