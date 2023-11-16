@@ -5,6 +5,7 @@ import com.morecommit.carrotEz.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity @Getter @Setter
@@ -31,8 +32,8 @@ public class Member {
     private String area;
 
 
-    public static Member createMember(MemberDto memberDto /*,
-                                      PasswordEncoder paswordEncoder*/) {
+    public static Member createMember(MemberDto memberDto ,
+                                      PasswordEncoder passwordEncoder) {
         Member member = new Member();
         member.setNickname(memberDto.getNickname());
         member.setEmail(memberDto.getEmail());
@@ -40,7 +41,10 @@ public class Member {
         member.setArea(memberDto.getArea());
         member.setCategory(memberDto.getCategory());
 
-        member.setRole(Role.USER);
+        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+        member.setPassword(encodedPassword);
+
+        member.setRole(Role.ADMIN);
 
         return member;
     }

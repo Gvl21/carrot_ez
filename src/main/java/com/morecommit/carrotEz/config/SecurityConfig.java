@@ -1,4 +1,4 @@
-/*
+
 package com.morecommit.carrotEz.config;
 
 import com.morecommit.carrotEz.service.MemberService;
@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import java.io.IOException;
 
@@ -88,10 +87,8 @@ public class SecurityConfig {
                 })
                 );
 
-
-
         // CSRF 토큰 검증 무효화
-         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+         http.csrf().disable();
         return http.build();
     }
 
@@ -101,4 +98,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-*/
+

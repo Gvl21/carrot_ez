@@ -5,9 +5,9 @@ import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/members/new")
     public ResponseEntity memberForm(@Valid @RequestBody MemberDto memberDto,
@@ -30,6 +30,7 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
             for (FieldError fieldError : fieldErrors) {
                 String defaultMessage = fieldError.getDefaultMessage();
                 stringBuilder.append(defaultMessage);
@@ -39,7 +40,7 @@ public class MemberController {
         }
         try {
             // 에러 있으면 다시 회원가입 페이지로 돌아감
-            Member member = Member.createMember(memberDto/*, passwordEncoder*/);
+            Member member = Member.createMember(memberDto, passwordEncoder);
 
             // 엔티티에서 db에 저장
             memberService.saveMember(member);
