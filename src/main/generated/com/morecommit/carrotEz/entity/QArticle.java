@@ -23,7 +23,7 @@ public class QArticle extends EntityPathBase<Article> {
 
     public final StringPath area = createString("area");
 
-    public final EnumPath<com.morecommit.carrotEz.constant.ArticleStatus> articleStatus = createEnum("articleStatus", com.morecommit.carrotEz.constant.ArticleStatus.class);
+    public final BooleanPath articleStatus = createBoolean("articleStatus");
 
     public final StringPath category = createString("category");
 

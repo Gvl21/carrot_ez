@@ -20,8 +20,6 @@ public class FstvlController {
     @GetMapping("/fstvl")
     public List fstvlPost(){
         LocalDateTime currentTime = LocalDateTime.now();
-        List<Fstvl> fstvls = fstvlService.showFstvl(currentTime);
-
-        return fstvls;
+        return fstvlService.showFstvl(currentTime);
     }
 }

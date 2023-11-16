@@ -14,6 +14,7 @@ public interface FstvlRepository extends JpaRepository<Fstvl, Long> {
        select f from Fstvl f
         where (:localDateTime between f.startDate and f.endDate)
           or (f.startDate between :localDateTime and :oneMonthAfter)
+           order by f.startDate asc
 """)
 List<Fstvl> findFstvlDetailList(@Param("localDateTime") LocalDateTime localDateTime,
                                 @Param("oneMonthAfter") LocalDateTime oneMonthAfter);

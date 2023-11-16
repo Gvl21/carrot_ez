@@ -1,6 +1,5 @@
 package com.morecommit.carrotEz.entity;
 
-import com.morecommit.carrotEz.constant.ArticleStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +17,7 @@ public class Article extends BaseEntity{
     @Column(name = "article_content")
     private String content;
 
-    private ArticleStatus articleStatus;
+    private boolean articleStatus;
 
     @Column(name = "article_category")
     private String category;

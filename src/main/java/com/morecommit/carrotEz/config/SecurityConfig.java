@@ -1,4 +1,4 @@
-/*
+
 package com.morecommit.carrotEz.config;
 
 import com.morecommit.carrotEz.service.MemberService;
@@ -58,7 +58,7 @@ public class SecurityConfig {
                         // Ant 패턴 경로 요청에 대한 매칭 수행
                         // ** : 모든 파일 및 경로에 대해
                         // 루트 경로는 모두가 접근 가능
-                        .requestMatchers(antMatcher("/**")).permitAll()
+                        .requestMatchers(antMatcher("/")).permitAll()
                         // 정적 파일 css, js, image 등은 모두 접근 가능
                         .requestMatchers(antMatcher("/css/**")).permitAll()
                         // 로그인, 로그아웃, 회원가입 페이지는 모두 접근 가능
@@ -91,7 +91,7 @@ public class SecurityConfig {
 
 
         // CSRF 토큰 검증 무효화
-         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+         http.csrf().disable();
         return http.build();
     }
 
@@ -101,4 +101,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-*/
+

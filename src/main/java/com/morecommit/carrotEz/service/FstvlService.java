@@ -18,7 +18,6 @@ public class FstvlService {
     private final FstvlRepository fstvlRepository;
     public List<Fstvl> showFstvl(LocalDateTime currentTime) {
         LocalDateTime oneMonthAfter = currentTime.plusMonths(1);
-
         return fstvlRepository.findFstvlDetailList(currentTime, oneMonthAfter);
     }
 
