@@ -71,7 +71,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/admin/**"))
                         .hasAnyRole("ADMIN")
                         // 그 외 모든 요청은 인증되어야 한다.
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
