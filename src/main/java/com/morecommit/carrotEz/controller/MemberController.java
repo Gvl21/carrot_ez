@@ -1,6 +1,7 @@
 package com.morecommit.carrotEz.controller;
 
 import com.morecommit.carrotEz.dto.MemberDto;
+import com.morecommit.carrotEz.dto.MemberSignInDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.service.MemberService;
 import jakarta.validation.Valid;
@@ -49,6 +50,15 @@ public class MemberController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("MEMBER");
     }
+
+    @PostMapping("/members/signIn")
+    public ResponseEntity signInForm(@Valid @RequestBody MemberSignInDto memberSignInDto) {
+        ResponseEntity response = memberService.signIn(memberSignInDto);
+        return response;
+
+    }
+
+
 
 
     @GetMapping("/members/login/error")
