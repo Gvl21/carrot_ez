@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto;
+package com.morecommit.carrotEz.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

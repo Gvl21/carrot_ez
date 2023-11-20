@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto;
+package com.morecommit.carrotEz.dto.member;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MemberSignInDto {
+public class MemberSignInRequestDto {
     @NotBlank
     private String email;
     @NotBlank

@@ -1,15 +1,13 @@
 package com.morecommit.carrotEz.service;
 
-import com.morecommit.carrotEz.dto.MemberSignInDto;
-import com.morecommit.carrotEz.dto.TokenDto;
+import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
+import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.jwt.JwtProvider;
 import com.morecommit.carrotEz.repository.MemberRepository;
-import com.morecommit.carrotEz.response.SignInResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,24 +39,24 @@ public class MemberService implements UserDetailsService{
         }
     }
 
-    public ResponseEntity signIn(MemberSignInDto dto){
+    public ResponseEntity<? super MemberSignInResponseDto> signIn(MemberSignInRequestDto dto){
         String token = null;
         try{
             String email = dto.getEmail();
             Member member = memberRepository.findByEmail(email);
-            if (member == null) return SignInResponseDto.failed();
+            if (member == null) return MemberSignInResponseDto.signInFailed();
 
             String password = dto.getPassword();
             String encodedPassword = member.getPassword();
             boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-            if(!isMatched) return SignInResponseDto.failed();
+            if(!isMatched) return MemberSignInResponseDto.signInFailed();
 
             token = jwtProvider.create(email);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("sign-in 서비스 에러");
         }
-        return SignInResponseDto.success(token);
+        return MemberSignInResponseDto.success(token);
     }
 
     @Override
