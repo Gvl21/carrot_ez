@@ -1,6 +1,8 @@
 package com.morecommit.carrotEz.controller;
 
-import com.morecommit.carrotEz.dto.MemberDto;
+import com.morecommit.carrotEz.dto.member.MemberDto;
+import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
+import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.service.MemberService;
 import jakarta.validation.Valid;
@@ -50,11 +52,11 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body("MEMBER");
     }
 
+    @PostMapping("/members/signIn")
+    public ResponseEntity<? super MemberSignInResponseDto> signInForm(@Valid @RequestBody MemberSignInRequestDto requestBody) {
+        ResponseEntity<? super MemberSignInResponseDto> response = memberService.signIn(requestBody);
+        return response;
 
-    @GetMapping("/members/login/error")
-    public String loginError(Model model){
-        model.addAttribute("loginErrorMsg",
-                "아이디와 비밀번호를 확인 하라고오오오오오");
-        return "/member/memberLoginForm";
     }
+
 }

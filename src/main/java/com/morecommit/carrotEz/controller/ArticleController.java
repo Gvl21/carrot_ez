@@ -43,7 +43,5 @@ public class ArticleController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("service error");
         }
         return ResponseEntity.status(HttpStatus.OK).body("저장 완료");
-
-
     }
 }

@@ -1,7 +1,7 @@
 package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.constant.Role;
-import com.morecommit.carrotEz.dto.MemberDto;
+import com.morecommit.carrotEz.dto.member.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,7 +44,7 @@ public class Member {
         String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
         member.setPassword(encodedPassword);
 
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
 
         return member;
     }
