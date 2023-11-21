@@ -9,7 +9,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class ArticleDto {
+public class  ArticleDto {
     @NotBlank(message = "필수 입력 값 입니다.")
     private String title;
 
