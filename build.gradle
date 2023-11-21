@@ -29,8 +29,7 @@ dependencies {
 	// 스프링 시큐리티 테스트
 	testImplementation 'org.springframework.security:spring-security-test'
 
-	// 스프링 프레임워크 보안 : 인증, 인가, 일반적인 공격 방어
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// 개발 시 유용한 기능을 제공하는 모듈 : 자동 재시작, 페이지 리로드 등
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	// JPA : 자바 영속성 API

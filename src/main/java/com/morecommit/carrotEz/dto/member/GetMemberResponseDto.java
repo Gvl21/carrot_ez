@@ -9,21 +9,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class GetSignInUserResponseDto extends ResponseDto {
+public class GetMemberResponseDto extends ResponseDto {
 
     private String email;
     private String nickname;
 //    private String profileImage;
 
-    public GetSignInUserResponseDto(Member member) {
+    public GetMemberResponseDto(Member member) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.email = member.getEmail();
         this.nickname = member.getNickname();
 //        this.profileImage = member.getProfileImage();
     }
 
-    public static ResponseEntity<GetSignInUserResponseDto> success(Member member){
-        GetSignInUserResponseDto result = new GetSignInUserResponseDto(member);
+    public static ResponseEntity<GetMemberResponseDto> success(Member member){
+        GetMemberResponseDto result = new GetMemberResponseDto(member);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 public static ResponseEntity<ResponseDto> notExistUser(){

@@ -58,7 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     /**
      *
-     *
      * 해당 request의 헤더부분에 Authorization key 값에 value 가 있는지 체크,
      * 없으면 그냥 null을 리턴한다.
      * 그리고 value 값이 Bearer 로 시작하는지 체크 후에 아니라면 적법한 value가 아니니
