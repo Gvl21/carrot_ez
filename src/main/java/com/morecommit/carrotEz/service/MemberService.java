@@ -27,6 +27,7 @@ public class MemberService implements UserDetailsService{
 
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
+
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // 회원가입
