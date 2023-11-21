@@ -1,7 +1,9 @@
 package com.morecommit.carrotEz.service;
 
+import com.morecommit.carrotEz.dto.member.GetMemberResponseDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
+import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.jwt.JwtProvider;
 import com.morecommit.carrotEz.repository.MemberRepository;
@@ -57,6 +59,20 @@ public class MemberService implements UserDetailsService{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("sign-in 서비스 에러");
         }
         return MemberSignInResponseDto.success(token);
+    }
+
+    // 멤버 정보 받아오기
+    public ResponseEntity<? super GetMemberResponseDto> getSignInMember(String email){
+        Member member = null;
+        try{
+            member = memberRepository.findByEmail(email);
+            if (member == null) return GetMemberResponseDto.notExistUser();
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetMemberResponseDto.success(member);
     }
 
     @Override
