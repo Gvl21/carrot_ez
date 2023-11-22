@@ -33,4 +33,5 @@ public class MemberDto {
      private String area;
 
      private String category;
+
 }
