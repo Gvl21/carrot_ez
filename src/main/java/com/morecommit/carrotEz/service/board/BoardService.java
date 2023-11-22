@@ -5,7 +5,5 @@ import com.morecommit.carrotEz.dto.response.board.PostBoardResponseDto;
 import org.springframework.http.ResponseEntity;
 
 public interface BoardService {
-    ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email){
-
-    }
+    ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
 }

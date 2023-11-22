@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService {
             if (!existedEmail)
                 return PostBoardResponseDto.notExistUser();
 
-            Board board = new Board();
+            Board board = new Board(dto, email);
             boardRepository.save(board);
 
        }catch (Exception exception) {
