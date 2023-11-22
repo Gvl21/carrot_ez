@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-
-
-
 public class PostBoardResponseDto extends ResponseDto {
     private PostBoardResponseDto(){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -24,7 +21,7 @@ public class PostBoardResponseDto extends ResponseDto {
     public static ResponseEntity<ResponseDto> notExistUser(){
         ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_USER, ResponseMessage.NOT_EXISTED_USER);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
-
     }
+
 
 }
