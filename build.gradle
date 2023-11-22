@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-developer'
+	// implementation 'org.springframework.boot:spring-boot-developer'
 	// 스프링부트 유효성 검증
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// 스프링 시큐리티 테스트

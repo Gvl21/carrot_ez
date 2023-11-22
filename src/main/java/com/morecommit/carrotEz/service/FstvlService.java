@@ -21,8 +21,4 @@ public class FstvlService {
         return fstvlRepository.findFstvlDetailList(currentTime, oneMonthAfter);
     }
 
-
-
-
-
 }
