@@ -21,17 +21,4 @@ public class ArticleService {
         articleRepository.save(article);
         return article.getId();
     }
-
-    // 게시글 수정
-   // public Long updateArticle(ArticleDto articleDto){
-        // 게시글 조회
-    //    Article article = articleRepository.findAllByTitle(articleDto.getTitle());
-   //     return article.getId();
-   // }
-
-
-    // 유효성 검사(로그인 회원 DB회원)
-public boolean validateMember(Long ArticleId, String email){
-    Member member = memberRepository.findByEmail(email);
-    Article article = articleRepository.findBy()
 }
