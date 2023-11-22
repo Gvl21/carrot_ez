@@ -6,7 +6,6 @@ import com.morecommit.carrotEz.service.file.FileService;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity @Getter @Setter
 public class Member {
@@ -31,8 +30,7 @@ public class Member {
 
     private String area;
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-    private MemberImage memberImage;
+    private String memberImageUrl;
 
 
 

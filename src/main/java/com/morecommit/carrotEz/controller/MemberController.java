@@ -29,7 +29,8 @@ public class MemberController {
     private final FileService fileService;
 
     @PostMapping("/members/new")
-    public ResponseEntity memberForm(@Valid @RequestBody MemberDto memberDto,
+    public ResponseEntity memberForm(@Valid @ModelAttribute MemberDto memberDto,
+                                     @RequestParam("profileImage") MultipartFile file,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -47,8 +48,9 @@ public class MemberController {
             // 에러 있으면 다시 회원가입 페이지로 돌아감
             Member member = Member.createMember(memberDto, passwordEncoder);
 
+
             // 엔티티에서 db에 저장
-            memberService.saveMember(member);
+            memberService.saveMember(member, file);
         } catch (IllegalStateException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("service error");
         }
@@ -61,21 +63,11 @@ public class MemberController {
         return url;
     }
 
-
-
-
-
-
-
-
-
-
     @PostMapping("/members/signIn")
     public ResponseEntity<? super MemberSignInResponseDto> signInForm(@Valid @RequestBody MemberSignInRequestDto requestBody) {
         ResponseEntity<? super MemberSignInResponseDto> response = memberService.signIn(requestBody);
         return response;
     }
-
 
 
     // 유저 정보 받아오기

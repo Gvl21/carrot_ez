@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
@@ -33,5 +34,6 @@ public class MemberDto {
      private String area;
 
      private String category;
+
 
 }

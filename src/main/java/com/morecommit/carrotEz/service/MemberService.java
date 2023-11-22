@@ -7,6 +7,7 @@ import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.jwt.JwtProvider;
 import com.morecommit.carrotEz.repository.MemberRepository;
+import com.morecommit.carrotEz.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -27,12 +31,20 @@ public class MemberService implements UserDetailsService{
 
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
+    private final FileService fileService;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // 회원가입
-    public Member saveMember(Member member) {
+    public Member saveMember(Member member, MultipartFile file) {
         validateDuplicateMember(member);
+
+        // 이미지 파일 저장 로직
+        if(file != null){
+            String fileName = saveImage(file);
+            member.setMemberImageUrl(fileName);
+        }
+
         return memberRepository.save(member);
     }
     private void validateDuplicateMember(Member member) {
@@ -42,6 +54,10 @@ public class MemberService implements UserDetailsService{
         }
     }
 
+    // 파일서비스의 의존성을 주입받아 파일 업로드시 받는 url을 반환 + 파일 업로드
+    private String saveImage(MultipartFile file){
+        return fileService.upload(file);
+        }
     public ResponseEntity<? super MemberSignInResponseDto> signIn(MemberSignInRequestDto dto){
         String token = null;
         try{

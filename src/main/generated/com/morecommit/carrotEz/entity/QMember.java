@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,8 +16,6 @@ import com.querydsl.core.types.dsl.PathInits;
 public class QMember extends EntityPathBase<Member> {
 
     private static final long serialVersionUID = 959501188L;
-
-    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QMember member = new QMember("member1");
 
@@ -30,7 +27,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final QMemberImage memberImage;
+    public final StringPath memberImageUrl = createString("memberImageUrl");
 
     public final StringPath nickname = createString("nickname");
 
@@ -39,24 +36,15 @@ public class QMember extends EntityPathBase<Member> {
     public final EnumPath<com.morecommit.carrotEz.constant.Role> role = createEnum("role", com.morecommit.carrotEz.constant.Role.class);
 
     public QMember(String variable) {
-        this(Member.class, forVariable(variable), INITS);
+        super(Member.class, forVariable(variable));
     }
 
     public QMember(Path<? extends Member> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QMember(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QMember(PathMetadata metadata, PathInits inits) {
-        this(Member.class, metadata, inits);
-    }
-
-    public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.memberImage = inits.isInitialized("memberImage") ? new QMemberImage(forProperty("memberImage"), inits.get("memberImage")) : null;
+        super(Member.class, metadata);
     }
 
 }

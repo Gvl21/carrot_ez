@@ -1,26 +1,23 @@
 package com.morecommit.carrotEz.service.file;
 
-import com.morecommit.carrotEz.entity.Member;
-import com.morecommit.carrotEz.repository.MemberImageRepository;
 import com.morecommit.carrotEz.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FileServicelmpl implements FileService {
 
     private final MemberRepository memberRepository;
-    private final MemberImageRepository memberImageRepository;
 
     @Value("${file.path}")
     private String filePath;
