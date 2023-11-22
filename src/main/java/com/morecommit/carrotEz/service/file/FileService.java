@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.file;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

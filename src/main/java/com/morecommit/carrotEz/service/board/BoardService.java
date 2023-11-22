@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.board;
 
 import com.morecommit.carrotEz.dto.request.board.PostBoardRequestDto;
 import com.morecommit.carrotEz.dto.response.board.PostBoardResponseDto;

@@ -1,6 +1,6 @@
 package com.morecommit.carrotEz.controller;
 
-import com.morecommit.carrotEz.service.FileService;
+import com.morecommit.carrotEz.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;

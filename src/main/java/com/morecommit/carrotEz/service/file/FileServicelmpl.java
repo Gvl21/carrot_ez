@@ -1,6 +1,5 @@
-package com.morecommit.carrotEz.service.implement;
+package com.morecommit.carrotEz.service.file;
 
-import com.morecommit.carrotEz.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

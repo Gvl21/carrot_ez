@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.member;
 
 import com.morecommit.carrotEz.dto.member.GetMemberResponseDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;

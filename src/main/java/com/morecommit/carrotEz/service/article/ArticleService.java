@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.article;
 
 import com.morecommit.carrotEz.dto.ArticleDto;
 import com.morecommit.carrotEz.entity.Article;
@@ -20,6 +20,4 @@ public class ArticleService {
         return article.getId();
     }
 
-    public static class BoardService {
-    }
 }

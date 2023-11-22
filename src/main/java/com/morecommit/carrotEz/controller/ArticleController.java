@@ -1,9 +1,7 @@
 package com.morecommit.carrotEz.controller;
 
 import com.morecommit.carrotEz.dto.ArticleDto;
-import com.morecommit.carrotEz.entity.Article;
-import com.morecommit.carrotEz.entity.Member;
-import com.morecommit.carrotEz.service.ArticleService;
+import com.morecommit.carrotEz.service.article.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

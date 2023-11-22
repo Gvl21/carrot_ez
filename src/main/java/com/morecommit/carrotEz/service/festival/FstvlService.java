@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.festival;
 
 import com.morecommit.carrotEz.entity.Fstvl;
 import com.morecommit.carrotEz.repository.FstvlRepository;

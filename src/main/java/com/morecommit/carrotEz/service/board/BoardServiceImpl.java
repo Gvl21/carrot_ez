@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.service.implement;
+package com.morecommit.carrotEz.service.board;
 
 import com.morecommit.carrotEz.dto.request.board.PostBoardRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
@@ -6,7 +6,6 @@ import com.morecommit.carrotEz.dto.response.board.PostBoardResponseDto;
 import com.morecommit.carrotEz.entity.Board;
 import com.morecommit.carrotEz.repository.BoardRepository;
 import com.morecommit.carrotEz.repository.UserReository;
-import com.morecommit.carrotEz.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
