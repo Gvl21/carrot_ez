@@ -70,11 +70,11 @@ public class SecurityConfig {
         return http.build();
 
     }
-    // 해시 함수를 이용한 비밀번호 암호화
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    // 해시 함수를 이용한 비밀번호 암호화
 
 
 //    class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint{
