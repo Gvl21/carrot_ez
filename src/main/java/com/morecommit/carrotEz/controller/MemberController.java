@@ -1,5 +1,6 @@
 package com.morecommit.carrotEz.controller;
 
+import com.morecommit.carrotEz.dto.member.GetMemberResponseDto;
 import com.morecommit.carrotEz.dto.member.MemberDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,7 +58,17 @@ public class MemberController {
     public ResponseEntity<? super MemberSignInResponseDto> signInForm(@Valid @RequestBody MemberSignInRequestDto requestBody) {
         ResponseEntity<? super MemberSignInResponseDto> response = memberService.signIn(requestBody);
         return response;
+    }
 
+
+
+    // 유저 정보 받아오기
+    @GetMapping("/members/info")
+    public ResponseEntity<? super GetMemberResponseDto> getSignInMember(
+            @AuthenticationPrincipal String email
+    ){
+        ResponseEntity<? super GetMemberResponseDto> response = memberService.getSignInMember(email);
+        return response;
     }
 
 }
