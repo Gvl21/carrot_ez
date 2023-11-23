@@ -17,7 +17,7 @@ public class WebConfig {
                 registry
                         .addMapping("/**")   // 모든 경로
                         .allowedMethods("*")           // 모든 method
-                        .allowedOrigins("http://localhost:3000");  // 접근 가능 출처(리액트)
+                        .allowedOrigins("http://localhost:3000"); // 접근 가능 출처(리액트)
             }
         };
     }

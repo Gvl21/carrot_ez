@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto;
+package com.morecommit.carrotEz.dto.member;
 
 
 import jakarta.validation.constraints.Email;
@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter @Setter
 @Builder @NoArgsConstructor @AllArgsConstructor
@@ -29,6 +30,10 @@ public class MemberDto {
     private String password;
 
      // 주소
-//     @NotEmpty(message = "필수 입력 값 입니다.")
-//     private String address;
+     @NotEmpty(message = "필수 입력 값 입니다.")
+     private String area;
+
+     private String category;
+
+
 }
