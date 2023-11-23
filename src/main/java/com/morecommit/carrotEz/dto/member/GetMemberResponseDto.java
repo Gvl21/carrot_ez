@@ -11,15 +11,15 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class GetMemberResponseDto extends ResponseDto {
 
-    private String email;
-    private String nickname;
-//    private String profileImage;
+    private final String email;
+    private final String nickname;
+    private final String memberImageUrl;
 
     public GetMemberResponseDto(Member member) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.email = member.getEmail();
         this.nickname = member.getNickname();
-//        this.profileImage = member.getProfileImage();
+        this.memberImageUrl = member.getMemberImageUrl();
     }
 
     public static ResponseEntity<GetMemberResponseDto> success(Member member){

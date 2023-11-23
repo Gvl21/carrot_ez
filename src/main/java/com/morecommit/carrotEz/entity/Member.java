@@ -2,11 +2,10 @@ package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.constant.Role;
 import com.morecommit.carrotEz.dto.member.MemberDto;
+import com.morecommit.carrotEz.service.file.FileService;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity @Getter @Setter
 public class Member {
@@ -30,6 +29,9 @@ public class Member {
     private String category;
 
     private String area;
+
+    private String memberImageUrl;
+
 
 
     public static Member createMember(MemberDto memberDto ,
