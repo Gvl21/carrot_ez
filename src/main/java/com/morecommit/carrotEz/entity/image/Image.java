@@ -18,4 +18,9 @@ public class Image {
     private int boardNumber;
     private String image;
 
+    public Image(int boardNumber, String image){
+        this.boardNumber = boardNumber;
+        this.image = image;
+    }
+
 }
