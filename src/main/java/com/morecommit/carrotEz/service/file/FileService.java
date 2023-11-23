@@ -12,4 +12,6 @@ public interface FileService {
     // 접근한 url로 파일을 내보내주는 이미지 서비스
     Resource getImage(String filName);
 
+
+
 }

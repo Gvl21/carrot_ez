@@ -35,7 +35,7 @@ public class JwtProvider {
 
         // Role을 SimpleGrantedAuthority로 변환하여 authorities 리스트에 추가
         List<SimpleGrantedAuthority> authorities = roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())) // "ROLE_" 추가
                 .toList();
 
         Date expiredDate = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
