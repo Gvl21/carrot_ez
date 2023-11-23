@@ -1,5 +1,6 @@
 package com.morecommit.carrotEz.jwt;
 
+import com.morecommit.carrotEz.service.MemberService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
     private final UserDetailsService userDetailsService;
+    private final MemberService memberService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -42,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = memberService.loadUserByUsername(email);
 
             AbstractAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(email, null, userDetails.getAuthorities());
