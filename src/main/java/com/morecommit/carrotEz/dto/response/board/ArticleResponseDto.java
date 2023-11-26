@@ -2,19 +2,19 @@ package com.morecommit.carrotEz.dto.response.board;
 
 import com.morecommit.carrotEz.common.ResponseCode;
 import com.morecommit.carrotEz.common.ResponseMessage;
-import com.morecommit.carrotEz.dto.response.user.ResponseDto;
+import com.morecommit.carrotEz.dto.response.ResponseDto;
+
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class PostBoardResponseDto extends ResponseDto {
-    private PostBoardResponseDto(){
+public class ArticleResponseDto extends ResponseDto {
+    private ArticleResponseDto(){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
-    public static ResponseEntity<PostBoardResponseDto> success(){
-        PostBoardResponseDto result = new PostBoardResponseDto();
+    public static ResponseEntity<ArticleResponseDto> success(){
+        ArticleResponseDto result = new ArticleResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
     // 존재하지 않는 사용자
