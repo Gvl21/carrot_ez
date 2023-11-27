@@ -1,11 +1,13 @@
 package com.morecommit.carrotEz.entity;
 
-import com.morecommit.carrotEz.dto.ArticleDto;
+import com.morecommit.carrotEz.dto.request.board.ArticleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity @Getter @Setter @ToString
 @NoArgsConstructor
@@ -30,8 +32,11 @@ public class Article extends BaseEntity{
     @Column(name = "article_area")
     private String area;
 
+    @Column
+    private List<String> articleImageList;
+
     // 영속성 컨텍스트 변경감지기능 활용 : 트랜잭션 종료시 업데이트 쿼리 수행
-    public void updateArticle(ArticleDto articleDto){
+    public void updateArticle(ArticleRequestDto articleRequestDto){
 
 
     }

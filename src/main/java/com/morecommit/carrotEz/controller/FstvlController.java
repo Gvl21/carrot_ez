@@ -17,7 +17,7 @@ public class FstvlController {
 
     private final FstvlService fstvlService;
     @GetMapping("/fstvl")
-    public List fstvlPost(){
+    public List<Fstvl> fstvlPost(){
         LocalDateTime currentTime = LocalDateTime.now();
         return fstvlService.showFstvl(currentTime);
     }

@@ -47,10 +47,10 @@ public class FileServicelmpl implements FileService {
     }
 
     @Override
-    public Resource getImage(String filName) {
+    public Resource getImage(String fileName) {
         Resource resource = null;
         try{
-            resource = new UrlResource("file:" + filePath + filName);
+            resource = new UrlResource("file:" + filePath + fileName);
         } catch (Exception exception){
             exception.printStackTrace();
             return null;

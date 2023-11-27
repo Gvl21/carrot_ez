@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto.member;
+package com.morecommit.carrotEz.dto.request.member;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
