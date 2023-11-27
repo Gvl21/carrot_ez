@@ -19,7 +19,7 @@ public class QArticleImage extends EntityPathBase<ArticleImage> {
 
     public static final QArticleImage articleImage = new QArticleImage("articleImage");
 
-    public final NumberPath<Long> articleNumber = createNumber("articleNumber", Long.class);
+    public final NumberPath<Long> articleId = createNumber("articleId", Long.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

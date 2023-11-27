@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ArticleRequestDto {
     private String area;
 
     @NotNull
-    private List<String> articleImageList;
+    private List<MultipartFile> articleImageList;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

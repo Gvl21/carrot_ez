@@ -51,7 +51,9 @@ public class SecurityConfig {
                                 .requestMatchers(antMatcher(HttpMethod.POST,"/members/new")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.POST,"/members/signIn")).permitAll()
                                 // 프로필 사진관련 인가는 딱히 필요없이 모든 사람이 볼 수 있어야 되니 허용하기
-                                .requestMatchers(antMatcher(HttpMethod.GET,"/file/**")).permitAll()         
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/file/**")).permitAll()
+                                // 축제정보 얻기 모두 허용
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/fstvl")).permitAll()
                                 .requestMatchers(antMatcher("/board")).permitAll()
                                 .anyRequest().authenticated());
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
