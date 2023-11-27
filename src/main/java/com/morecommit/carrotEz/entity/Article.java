@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity @Getter @Setter @ToString
 @NoArgsConstructor
-
 public class Article extends BaseEntity{
     @Id
     @Column(name = "article_id")

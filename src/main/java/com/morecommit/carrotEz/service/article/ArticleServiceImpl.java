@@ -1,10 +1,13 @@
 package com.morecommit.carrotEz.service.article;
 
+import com.morecommit.carrotEz.common.ArticleList;
 import com.morecommit.carrotEz.dto.request.board.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.board.ArticleResponseDto;
+import com.morecommit.carrotEz.dto.response.board.GetArticleAllResponseDto;
 import com.morecommit.carrotEz.entity.Article;
 import com.morecommit.carrotEz.entity.ArticleImage;
+import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.repository.ArticleImageRepository;
 import com.morecommit.carrotEz.repository.ArticleRepository;
 import com.morecommit.carrotEz.repository.MemberRepository;
@@ -56,4 +59,41 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return ArticleResponseDto.success();
     }
+
+    /**
+     *
+     * 수정 전의 코드 (멤버 정보 주입전)
+     */
+//    @Override
+//    public ResponseEntity<? super GetArticleAllResponseDto> getArticleList() {
+//        List<Article> articleList = new ArrayList<>();
+//        try{
+//            articleList = articleRepository.findByOrderByRegTimeDesc();
+//            for (Article article : articleList) {
+//                // 일단 여기까진 잘 나옴
+//                System.out.println(article.getTitle());
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return ResponseDto.databaseError();
+//        }
+//        return GetArticleAllResponseDto.success(articleList);
+//    }
+
+    @Override
+    public ResponseEntity<? super GetArticleAllResponseDto> getArticleList() {
+        try{
+            List<Article> articles = articleRepository.findByOrderByRegTimeDesc();
+            List<ArticleList> articleListWithMemberInfo = ArticleList.getListWithMemberInfo(articles, memberRepository);
+            return GetArticleAllResponseDto.success(articleListWithMemberInfo);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+    }
+
+
+
 }
