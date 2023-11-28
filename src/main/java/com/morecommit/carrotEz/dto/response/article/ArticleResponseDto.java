@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto.response.board;
+package com.morecommit.carrotEz.dto.response.article;
 
 import com.morecommit.carrotEz.common.ResponseCode;
 import com.morecommit.carrotEz.common.ResponseMessage;

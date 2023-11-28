@@ -1,10 +1,11 @@
 package com.morecommit.carrotEz.service.article;
 
 import com.morecommit.carrotEz.common.ArticleList;
-import com.morecommit.carrotEz.dto.request.board.ArticleRequestDto;
+import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
-import com.morecommit.carrotEz.dto.response.board.ArticleResponseDto;
-import com.morecommit.carrotEz.dto.response.board.GetArticleAllResponseDto;
+import com.morecommit.carrotEz.dto.response.article.ArticleResponseDto;
+import com.morecommit.carrotEz.dto.response.article.GetArticleAllResponseDto;
+import com.morecommit.carrotEz.dto.response.article.GetArticleResponseDto;
 import com.morecommit.carrotEz.entity.Article;
 import com.morecommit.carrotEz.entity.ArticleImage;
 import com.morecommit.carrotEz.entity.Member;
@@ -36,12 +37,13 @@ public class ArticleServiceImpl implements ArticleService {
             boolean existedEmail = memberRepository.existsByEmail(email);
             if (!existedEmail) return ArticleResponseDto.notExistUser();
 
-            Article article = dto.createArticle();
+            Article article = ArticleRequestDto.createArticle(dto);
 
             List<ArticleImage> articleImages = new ArrayList<>();
             List<String> articleImageUrls = new ArrayList<>();
+
             for (MultipartFile image : file) {
-                String uploadedImage  = fileService.upload(image);
+                String uploadedImage = fileService.upload(image);
                 ArticleImage articleImage = new ArticleImage(uploadedImage);
                 articleImages.add(articleImage);
                 articleImageUrls.add(uploadedImage);
@@ -53,15 +55,29 @@ public class ArticleServiceImpl implements ArticleService {
                 articleImage.setArticleId(articleId);
             }
             articleImageRepository.saveAll(articleImages);
-        } catch (Exception e){
+
+            return ArticleResponseDto.success();
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ArticleResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super ArticleResponseDto> saveArticle(ArticleRequestDto dto, String email) {
+        try {
+            boolean existedEmail = memberRepository.existsByEmail(email);
+            if (!existedEmail) return ArticleResponseDto.notExistUser();
+            Article article = ArticleRequestDto.createArticle(dto);
+            articleRepository.save(article);
+            return ArticleResponseDto.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 
     /**
-     *
      * 수정 전의 코드 (멤버 정보 주입전)
      */
 //    @Override
@@ -79,21 +95,37 @@ public class ArticleServiceImpl implements ArticleService {
 //        }
 //        return GetArticleAllResponseDto.success(articleList);
 //    }
-
     @Override
     public ResponseEntity<? super GetArticleAllResponseDto> getArticleList() {
-        try{
+        try {
             List<Article> articles = articleRepository.findByOrderByRegTimeDesc();
             List<ArticleList> articleListWithMemberInfo = ArticleList.getListWithMemberInfo(articles, memberRepository);
             return GetArticleAllResponseDto.success(articleListWithMemberInfo);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.databaseError();
         }
 
     }
 
+    @Override
+    public ResponseEntity<? super GetArticleResponseDto> getArticle(Long articleId) {
+        Article article = null;
+        List<ArticleImage> articleImageList = new ArrayList<>();
+        Member member = new Member();
+        try {
+            article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return GetArticleResponseDto.notExistBoard();
+            articleImageList = articleImageRepository.findByArticleId(articleId);
+            member = memberRepository.findByEmail(article.getCreatedBy());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetArticleResponseDto.success(article, articleImageList, member);
+    }
 
 
 }

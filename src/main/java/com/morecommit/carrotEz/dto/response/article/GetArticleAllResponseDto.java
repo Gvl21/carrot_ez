@@ -1,11 +1,9 @@
-package com.morecommit.carrotEz.dto.response.board;
+package com.morecommit.carrotEz.dto.response.article;
 
 import com.morecommit.carrotEz.common.ArticleList;
 import com.morecommit.carrotEz.common.ResponseCode;
 import com.morecommit.carrotEz.common.ResponseMessage;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
-import com.morecommit.carrotEz.entity.Article;
-import com.morecommit.carrotEz.entity.Member;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
