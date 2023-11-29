@@ -1,15 +1,17 @@
 package com.morecommit.carrotEz.service.article;
 
 import com.morecommit.carrotEz.common.ArticleList;
+import com.morecommit.carrotEz.common.ReplyListItem;
+import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
-import com.morecommit.carrotEz.dto.response.article.ArticleResponseDto;
-import com.morecommit.carrotEz.dto.response.article.GetArticleAllResponseDto;
-import com.morecommit.carrotEz.dto.response.article.GetArticleResponseDto;
+import com.morecommit.carrotEz.dto.response.article.*;
 import com.morecommit.carrotEz.entity.Article;
 import com.morecommit.carrotEz.entity.ArticleImage;
+import com.morecommit.carrotEz.entity.ArticleReply;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.repository.ArticleImageRepository;
+import com.morecommit.carrotEz.repository.ArticleReplyRepository;
 import com.morecommit.carrotEz.repository.ArticleRepository;
 import com.morecommit.carrotEz.repository.MemberRepository;
 import com.morecommit.carrotEz.service.file.FileService;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;
     private final ArticleImageRepository articleImageRepository;
+    private final ArticleReplyRepository articleReplyRepository;
     private final FileService fileService;
 
     @Override
@@ -112,14 +116,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResponseEntity<? super GetArticleResponseDto> getArticle(Long articleId) {
         Article article = null;
-        List<ArticleImage> articleImageList = new ArrayList<>();
         Member member = new Member();
+        List<ArticleImageResponseDto> articleImageList = new ArrayList<>();
         try {
             article = articleRepository.findById(articleId).orElse(null);
             if (article == null) return GetArticleResponseDto.notExistBoard();
-            articleImageList = articleImageRepository.findByArticleId(articleId);
+            List<ArticleImage> imageList = articleImageRepository.findByArticleId(articleId);
+            articleImageList = ArticleImageResponseDto.fromEntityList(imageList);
             member = memberRepository.findByEmail(article.getCreatedBy());
-
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.databaseError();
@@ -127,5 +131,51 @@ public class ArticleServiceImpl implements ArticleService {
         return GetArticleResponseDto.success(article, articleImageList, member);
     }
 
+    @Override
+    public ResponseEntity<? super ArticleReplyResponseDto> saveReply(ArticleReplyRequestDto dto, Long articleId, String email) {
+        try {
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return ArticleReplyResponseDto.notExistBoard();
 
+            Member member = memberRepository.findByEmail(email);
+            if (member == null) return ArticleReplyResponseDto.notExistUser();
+
+            ArticleReply articleReply = new ArticleReply(dto, articleId);
+            articleReplyRepository.save(articleReply);
+
+            article.increaseReplyCount();
+            articleRepository.save(article);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ArticleReplyResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetArticleReplyResponseDto> getArticleReply(Long articleId) {
+        List<ReplyListItem> replyList = new ArrayList<>();
+
+        try {
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return GetArticleReplyResponseDto.notExistBoard();
+
+            List<ArticleReply> replies = articleReplyRepository.findByArticleIdOrderByRegTimeAsc(articleId);
+            for (ArticleReply reply : replies) {
+                ReplyListItem item = new ReplyListItem();
+                item.setContent(reply.getContent());
+                // 멤버 관련 정보 담기
+                Member member = memberRepository.findByEmail(reply.getCreatedBy());
+                item.setNickname(member.getNickname());
+                item.setMemberImgUrl(member.getMemberImageUrl());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                item.setRegTime(reply.getRegTime().format(formatter));
+                replyList.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetArticleReplyResponseDto.success(replyList);
+    }
 }

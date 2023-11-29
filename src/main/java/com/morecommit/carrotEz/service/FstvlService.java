@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FstvlService {
     private final FstvlRepository fstvlRepository;
-    public List<Fstvl> showFstvl(LocalDateTime currentTime) {
-        LocalDateTime oneMonthAfter = currentTime.plusMonths(1);
+    public List<Fstvl> showFstvl(LocalDate currentTime) {
+        LocalDate oneMonthAfter = currentTime.plusMonths(1);
         return fstvlRepository.findFstvlDetailList(currentTime, oneMonthAfter);
     }
 

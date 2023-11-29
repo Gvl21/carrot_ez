@@ -1,9 +1,9 @@
 package com.morecommit.carrotEz.service.article;
 
+import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
-import com.morecommit.carrotEz.dto.response.article.ArticleResponseDto;
-import com.morecommit.carrotEz.dto.response.article.GetArticleAllResponseDto;
-import com.morecommit.carrotEz.dto.response.article.GetArticleResponseDto;
+import com.morecommit.carrotEz.dto.response.article.*;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,4 +16,8 @@ public interface ArticleService {
     ResponseEntity<? super GetArticleAllResponseDto> getArticleList();
 
     ResponseEntity<? super GetArticleResponseDto> getArticle(Long ArticleId);
+
+    ResponseEntity<? super ArticleReplyResponseDto> saveReply(ArticleReplyRequestDto dto, Long articleId, String email);
+
+    ResponseEntity<? super GetArticleReplyResponseDto> getArticleReply(Long articleId);
 }

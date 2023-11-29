@@ -43,6 +43,8 @@ public class QArticle extends EntityPathBase<Article> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
 
+    public final NumberPath<Integer> replyCount = createNumber("replyCount", Integer.class);
+
     public final StringPath title = createString("title");
 
     //inherited

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,12 @@ public class ArticleList {
     private String content;
     private String area;
     private String category;
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
+    private String regTime;
+    private String updateTime;
     private String createdBy;
     private String nickname;
     private String profileImage;
+    private int replyCount;
 
     public ArticleList(Article article) {
         this.articleId = article.getId();
@@ -31,9 +33,11 @@ public class ArticleList {
         this.content = article.getContent();
         this.area = article.getArea();
         this.category = article.getCategory();
-        this.regTime = article.getRegTime();
-        this.updateTime = article.getUpdateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.regTime = article.getRegTime().format(formatter);
+        this.updateTime = article.getUpdateTime().format(formatter);
         this.createdBy = article.getCreatedBy();
+        this.replyCount = article.getReplyCount();
     }
     // 정적 메소드 추가
     public static List<ArticleList> getListWithMemberInfo(List<Article> articles, MemberRepository memberRepository) {

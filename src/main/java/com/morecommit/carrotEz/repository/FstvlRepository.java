@@ -5,17 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
 public interface FstvlRepository extends JpaRepository<Fstvl, Long> {
 @Query("""
        select f from Fstvl f
-        where (:localDateTime between f.startDate and f.endDate)
-          or (f.startDate between :localDateTime and :oneMonthAfter)
+        where (:localDate between f.startDate and f.endDate)
+          or (f.startDate between :localDate and :oneMonthAfter)
            order by f.startDate asc
 """)
-List<Fstvl> findFstvlDetailList(@Param("localDateTime") LocalDateTime localDateTime,
-                                @Param("oneMonthAfter") LocalDateTime oneMonthAfter);
+List<Fstvl> findFstvlDetailList(@Param("localDate") LocalDate localDate,
+                                @Param("oneMonthAfter") LocalDate oneMonthAfter);
 }

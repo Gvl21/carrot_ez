@@ -21,7 +21,7 @@ public class QFstvl extends EntityPathBase<Fstvl> {
 
     public final StringPath Detail = createString("Detail");
 
-    public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> endDate = createDate("endDate", java.time.LocalDate.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -31,7 +31,7 @@ public class QFstvl extends EntityPathBase<Fstvl> {
 
     public final StringPath name = createString("name");
 
-    public final DateTimePath<java.time.LocalDateTime> startDate = createDateTime("startDate", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> startDate = createDate("startDate", java.time.LocalDate.class);
 
     public QFstvl(String variable) {
         super(Fstvl.class, forVariable(variable));

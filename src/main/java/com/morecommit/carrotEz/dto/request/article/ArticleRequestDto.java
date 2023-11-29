@@ -41,6 +41,7 @@ public class ArticleRequestDto {
         article.setArea(dto.getArea());
         article.setCategory(dto.getCategory());
         article.setArticleStatus(true);
+        article.setReplyCount(0);
         return article;
     }
 

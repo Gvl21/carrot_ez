@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class FstvlController {
     private final FstvlService fstvlService;
     @GetMapping("/fstvl")
     public List<Fstvl> fstvlPost(){
-        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDate currentTime = LocalDate.now();
         return fstvlService.showFstvl(currentTime);
     }
 }
