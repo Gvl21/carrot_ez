@@ -1,9 +1,9 @@
 package com.morecommit.carrotEz.controller;
 
-import com.morecommit.carrotEz.dto.member.GetMemberResponseDto;
-import com.morecommit.carrotEz.dto.member.MemberDto;
-import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
-import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
+import com.morecommit.carrotEz.dto.response.member.GetMemberResponseDto;
+import com.morecommit.carrotEz.dto.request.member.MemberRegisterRequestDto;
+import com.morecommit.carrotEz.dto.request.member.MemberSignInRequestDto;
+import com.morecommit.carrotEz.dto.response.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.service.file.FileService;
 import com.morecommit.carrotEz.service.member.MemberService;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ public class MemberController {
     private final FileService fileService;
 
     @PostMapping("/members/new")
-    public ResponseEntity memberForm(@Valid @ModelAttribute MemberDto memberDto,
+    public ResponseEntity memberForm(@Valid @ModelAttribute MemberRegisterRequestDto memberRegisterRequestDto,
                                      @RequestParam("profileImage") MultipartFile file,
                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -46,7 +45,7 @@ public class MemberController {
         try {
 
             // 에러 있으면 다시 회원가입 페이지로 돌아감
-            Member member = Member.createMember(memberDto, passwordEncoder);
+            Member member = Member.createMember(memberRegisterRequestDto, passwordEncoder);
 
 
             // 엔티티에서 db에 저장

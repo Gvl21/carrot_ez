@@ -1,4 +1,4 @@
-package com.morecommit.carrotEz.dto.member;
+package com.morecommit.carrotEz.dto.response.member;
 
 import com.morecommit.carrotEz.common.ResponseCode;
 import com.morecommit.carrotEz.common.ResponseMessage;

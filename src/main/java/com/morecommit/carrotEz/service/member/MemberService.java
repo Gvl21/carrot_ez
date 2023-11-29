@@ -1,8 +1,8 @@
 package com.morecommit.carrotEz.service.member;
 
-import com.morecommit.carrotEz.dto.member.GetMemberResponseDto;
-import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
-import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
+import com.morecommit.carrotEz.dto.response.member.GetMemberResponseDto;
+import com.morecommit.carrotEz.dto.request.member.MemberSignInRequestDto;
+import com.morecommit.carrotEz.dto.response.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.jwt.JwtProvider;
@@ -20,8 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 
 @Service
@@ -58,6 +56,8 @@ public class MemberService implements UserDetailsService{
     private String saveImage(MultipartFile file){
         return fileService.upload(file);
         }
+
+   // 로그인 로직
     public ResponseEntity<? super MemberSignInResponseDto> signIn(MemberSignInRequestDto dto){
         String token = null;
         try{

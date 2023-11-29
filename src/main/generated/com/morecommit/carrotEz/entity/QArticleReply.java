@@ -7,28 +7,21 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QArticle is a Querydsl query type for Article
+ * QArticleReply is a Querydsl query type for ArticleReply
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QArticle extends EntityPathBase<Article> {
+public class QArticleReply extends EntityPathBase<ArticleReply> {
 
-    private static final long serialVersionUID = -2001493684L;
+    private static final long serialVersionUID = 835481854L;
 
-    public static final QArticle article = new QArticle("article");
+    public static final QArticleReply articleReply = new QArticleReply("articleReply");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final StringPath area = createString("area");
-
-    public final ListPath<String, StringPath> articleImageList = this.<String, StringPath>createList("articleImageList", String.class, StringPath.class, PathInits.DIRECT2);
-
-    public final BooleanPath articleStatus = createBoolean("articleStatus");
-
-    public final StringPath category = createString("category");
+    public final NumberPath<Long> articleId = createNumber("articleId", Long.class);
 
     public final StringPath content = createString("content");
 
@@ -43,21 +36,19 @@ public class QArticle extends EntityPathBase<Article> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regTime = _super.regTime;
 
-    public final StringPath title = createString("title");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
 
-    public QArticle(String variable) {
-        super(Article.class, forVariable(variable));
+    public QArticleReply(String variable) {
+        super(ArticleReply.class, forVariable(variable));
     }
 
-    public QArticle(Path<? extends Article> path) {
+    public QArticleReply(Path<? extends ArticleReply> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QArticle(PathMetadata metadata) {
-        super(Article.class, metadata);
+    public QArticleReply(PathMetadata metadata) {
+        super(ArticleReply.class, metadata);
     }
 
 }

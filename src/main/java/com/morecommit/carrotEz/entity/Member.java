@@ -1,8 +1,7 @@
 package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.constant.Role;
-import com.morecommit.carrotEz.dto.member.MemberDto;
-import com.morecommit.carrotEz.service.file.FileService;
+import com.morecommit.carrotEz.dto.request.member.MemberRegisterRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,16 +33,16 @@ public class Member {
 
 
 
-    public static Member createMember(MemberDto memberDto ,
+    public static Member createMember(MemberRegisterRequestDto memberRegisterRequestDto,
                                       PasswordEncoder passwordEncoder) {
         Member member = new Member();
-        member.setNickname(memberDto.getNickname());
-        member.setEmail(memberDto.getEmail());
-        member.setPassword(memberDto.getPassword());
-        member.setArea(memberDto.getArea());
-        member.setCategory(memberDto.getCategory());
+        member.setNickname(memberRegisterRequestDto.getNickname());
+        member.setEmail(memberRegisterRequestDto.getEmail());
+        member.setPassword(memberRegisterRequestDto.getPassword());
+        member.setArea(memberRegisterRequestDto.getArea());
+        member.setCategory(memberRegisterRequestDto.getCategory());
 
-        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+        String encodedPassword = passwordEncoder.encode(memberRegisterRequestDto.getPassword());
         member.setPassword(encodedPassword);
 
         member.setRole(Role.USER);
