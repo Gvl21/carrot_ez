@@ -5,6 +5,7 @@ import com.morecommit.carrotEz.dto.member.MemberDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInRequestDto;
 import com.morecommit.carrotEz.dto.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.entity.Member;
+import com.morecommit.carrotEz.service.file.FileService;
 import com.morecommit.carrotEz.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,10 +26,12 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final FileService fileService;
 
     @PostMapping("/members/new")
-    public ResponseEntity memberForm(@Valid @RequestBody MemberDto memberDto,
-                             BindingResult bindingResult) {
+    public ResponseEntity memberForm(@Valid @ModelAttribute MemberDto memberDto,
+                                     @RequestParam("profileImage") MultipartFile file,
+                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -43,15 +44,23 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(stringBuilder.toString());
         }
         try {
+
             // 에러 있으면 다시 회원가입 페이지로 돌아감
             Member member = Member.createMember(memberDto, passwordEncoder);
 
+
             // 엔티티에서 db에 저장
-            memberService.saveMember(member);
+            memberService.saveMember(member, file);
         } catch (IllegalStateException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("service error");
         }
         return ResponseEntity.status(HttpStatus.OK).body("MEMBER");
+    }
+
+    @PostMapping("/members/new/image")
+    public String upload(@RequestParam("file") MultipartFile file) {
+        String url = fileService.upload(file);
+        return url;
     }
 
     @PostMapping("/members/signIn")
@@ -59,7 +68,6 @@ public class MemberController {
         ResponseEntity<? super MemberSignInResponseDto> response = memberService.signIn(requestBody);
         return response;
     }
-
 
 
     // 유저 정보 받아오기

@@ -1,6 +1,6 @@
 package com.morecommit.carrotEz.jwt;
 
-import com.morecommit.carrotEz.service.MemberService;
+import com.morecommit.carrotEz.service.member.MemberService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

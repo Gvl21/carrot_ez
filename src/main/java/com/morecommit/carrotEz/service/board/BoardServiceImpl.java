@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
 
        }catch (Exception exception) {
            exception.printStackTrace();
-           return ResponseDto.databaseError();
+           return PostBoardResponseDto.notExistUser();
        }
        return PostBoardResponseDto.success();
     }
