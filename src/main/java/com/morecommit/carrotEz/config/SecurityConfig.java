@@ -2,7 +2,6 @@
 package com.morecommit.carrotEz.config;
 
 import com.morecommit.carrotEz.jwt.JwtAuthenticationFilter;
-import com.morecommit.carrotEz.service.MemberService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,6 +56,7 @@ public class SecurityConfig {
                                 // 게시글 목록만 아무나 볼 수 있도록 하기
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/main-list")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/findFriend-list")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/members/**")).permitAll()
                                 .anyRequest().authenticated());
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
         // => 로그인 페이지 리다이렉트(302)

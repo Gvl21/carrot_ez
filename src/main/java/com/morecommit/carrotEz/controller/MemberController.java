@@ -1,11 +1,12 @@
 package com.morecommit.carrotEz.controller;
 
+import com.morecommit.carrotEz.dto.response.member.GetMemberDetailDto;
 import com.morecommit.carrotEz.dto.response.member.GetMemberResponseDto;
 import com.morecommit.carrotEz.dto.request.member.MemberRegisterRequestDto;
 import com.morecommit.carrotEz.dto.request.member.MemberSignInRequestDto;
 import com.morecommit.carrotEz.dto.response.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.entity.Member;
-import com.morecommit.carrotEz.service.MemberService;
+import com.morecommit.carrotEz.service.member.MemberService;
 import com.morecommit.carrotEz.service.file.FileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +77,12 @@ public class MemberController {
     ){
         ResponseEntity<? super GetMemberResponseDto> response = memberService.getSignInMember(email);
         return response;
+    }
+
+    @GetMapping("members/{email}")
+    public ResponseEntity<? super GetMemberDetailDto> getMemberDetail(
+            @PathVariable("email") String email){
+        return memberService.getMemberDetail(email);
     }
 
 }

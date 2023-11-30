@@ -1,11 +1,14 @@
-package com.morecommit.carrotEz.service;
+package com.morecommit.carrotEz.service.member;
 
+import com.morecommit.carrotEz.dto.response.member.GetMemberDetailDto;
 import com.morecommit.carrotEz.dto.response.member.GetMemberResponseDto;
 import com.morecommit.carrotEz.dto.request.member.MemberSignInRequestDto;
 import com.morecommit.carrotEz.dto.response.member.MemberSignInResponseDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
+import com.morecommit.carrotEz.entity.Article;
 import com.morecommit.carrotEz.entity.Member;
 import com.morecommit.carrotEz.jwt.JwtProvider;
+import com.morecommit.carrotEz.repository.ArticleRepository;
 import com.morecommit.carrotEz.repository.MemberRepository;
 import com.morecommit.carrotEz.service.file.FileService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -28,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberService implements UserDetailsService{
 
     private final MemberRepository memberRepository;
+    private final ArticleRepository articleRepository;
     private final JwtProvider jwtProvider;
     private final FileService fileService;
 
@@ -103,6 +109,18 @@ public class MemberService implements UserDetailsService{
                 .password(member.getPassword())
                 .roles(member.getRole().toString())
                 .build();
+    }
+
+    public ResponseEntity<? super GetMemberDetailDto> getMemberDetail(String email) {
+        try{
+            Member member = memberRepository.findByEmail(email);
+            if (member == null) return GetMemberDetailDto.notExistUser();
+            List<Article> createdArticleList = articleRepository.findTop6ByCreatedByOrderByRegTimeDesc(member.getEmail());
+            return GetMemberDetailDto.success(member, createdArticleList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 
 

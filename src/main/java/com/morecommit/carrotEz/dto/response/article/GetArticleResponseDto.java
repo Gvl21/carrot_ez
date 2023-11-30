@@ -21,7 +21,6 @@ public class GetArticleResponseDto extends ResponseDto {
     private final String title;
     private final String content;
     private final String area;
-    private final String category;
     private final List<ArticleImage> articleImageList;
     private final String regTime;
     private final String updateTime;
@@ -35,7 +34,6 @@ public class GetArticleResponseDto extends ResponseDto {
         this.articleId = article.getId();
         this.title = article.getTitle();
         this.content = article.getContent();
-        this.category = article.getCategory();
         this.area = article.getArea();
         this.replyCount = article.getReplyCount();
         this.articleImageList = articleImageList;
