@@ -112,23 +112,34 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
     }
+    @Override
+    public ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain() {
+        try {
+            List<Article> articles = articleRepository.findTop9ByOrderByRegTimeDesc();
+            List<ArticleList> articleListWithMemberInfo = ArticleList.getListWithMemberInfo(articles, memberRepository);
+            return GetArticleAllResponseDto.success(articleListWithMemberInfo);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
     @Override
     public ResponseEntity<? super GetArticleResponseDto> getArticle(Long articleId) {
         Article article = null;
         Member member = new Member();
-        List<ArticleImageResponseDto> articleImageList = new ArrayList<>();
+//        List<ArticleImageResponseDto> articleImageList = new ArrayList<>();
+        List<ArticleImage> imageList = articleImageRepository.findByArticleId(articleId);
         try {
             article = articleRepository.findById(articleId).orElse(null);
             if (article == null) return GetArticleResponseDto.notExistBoard();
-            List<ArticleImage> imageList = articleImageRepository.findByArticleId(articleId);
-            articleImageList = ArticleImageResponseDto.fromEntityList(imageList);
+//            articleImageList = ArticleImageResponseDto.fromEntityList(imageList);
             member = memberRepository.findByEmail(article.getCreatedBy());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return GetArticleResponseDto.success(article, articleImageList, member);
+        return GetArticleResponseDto.success(article, imageList, member);
     }
 
     @Override
@@ -178,4 +189,5 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return GetArticleReplyResponseDto.success(replyList);
     }
+
 }

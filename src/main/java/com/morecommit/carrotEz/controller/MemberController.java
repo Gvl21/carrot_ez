@@ -29,7 +29,7 @@ public class MemberController {
 
     @PostMapping("/members/new")
     public ResponseEntity memberForm(@Valid @ModelAttribute MemberRegisterRequestDto memberRegisterRequestDto,
-                                     @RequestParam("profileImage") MultipartFile file,
+                                     @RequestPart(value = "profileImage", required = false) MultipartFile file,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder stringBuilder = new StringBuilder();

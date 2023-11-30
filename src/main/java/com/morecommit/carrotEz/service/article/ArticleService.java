@@ -20,4 +20,6 @@ public interface ArticleService {
     ResponseEntity<? super ArticleReplyResponseDto> saveReply(ArticleReplyRequestDto dto, Long articleId, String email);
 
     ResponseEntity<? super GetArticleReplyResponseDto> getArticleReply(Long articleId);
+
+    ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain();
 }

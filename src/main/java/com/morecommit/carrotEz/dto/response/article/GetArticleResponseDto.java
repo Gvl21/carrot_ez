@@ -22,14 +22,14 @@ public class GetArticleResponseDto extends ResponseDto {
     private final String content;
     private final String area;
     private final String category;
-    private final List<ArticleImageResponseDto> articleImageList;
+    private final List<ArticleImage> articleImageList;
     private final String regTime;
     private final String updateTime;
     private final String createdBy;
     private final String nickname;
     private final int replyCount;
     private final String memberImageUrl;
-    public GetArticleResponseDto(String code, String message, Article article, List<ArticleImageResponseDto> articleImageList, Member member) {
+    public GetArticleResponseDto(String code, String message, Article article, List<ArticleImage> articleImageList, Member member) {
         super(code, message);
 
         this.articleId = article.getId();
@@ -52,7 +52,7 @@ public class GetArticleResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
-    public static ResponseEntity<? super GetArticleResponseDto> success(Article article, List<ArticleImageResponseDto> articleImageList, Member member) {
+    public static ResponseEntity<? super GetArticleResponseDto> success(Article article, List<ArticleImage> articleImageList, Member member) {
         GetArticleResponseDto result = new GetArticleResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS, article, articleImageList, member);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

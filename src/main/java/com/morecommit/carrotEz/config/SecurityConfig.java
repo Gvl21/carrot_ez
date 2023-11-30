@@ -55,7 +55,8 @@ public class SecurityConfig {
                                 // 축제정보 얻기 모두 허용
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/fstvl")).permitAll()
                                 // 게시글 목록만 아무나 볼 수 있도록 하기
-                                .requestMatchers(antMatcher(HttpMethod.GET,"/article/list")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/article/main-list")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/article/findFriend-list")).permitAll()
                                 .anyRequest().authenticated());
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
         // => 로그인 페이지 리다이렉트(302)

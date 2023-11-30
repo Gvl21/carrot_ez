@@ -67,9 +67,14 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/article/list")
+    @GetMapping("/article/findFriend-list")
     public ResponseEntity<? super GetArticleAllResponseDto> getArticleList(){
         return articleService.getArticleList();
+    }
+
+    @GetMapping("/article/main-list")
+    public ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain(){
+        return articleService.getArticleListToMain();
     }
 
     @GetMapping("/article/{articleId}")
