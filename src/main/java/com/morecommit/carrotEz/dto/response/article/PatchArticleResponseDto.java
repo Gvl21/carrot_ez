@@ -12,7 +12,7 @@ public class PatchArticleResponseDto extends ResponseDto {
     private PatchArticleResponseDto(String code, String message) {
         super(code, message);
     }
-  public static ResponseEntity<PatchArticleResponseDto> sucess(){
+  public static ResponseEntity<PatchArticleResponseDto> success(){
         PatchArticleResponseDto result = new PatchArticleResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
   }
@@ -28,4 +28,5 @@ public class PatchArticleResponseDto extends ResponseDto {
         ResponseDto result = new ResponseDto(ResponseCode.NO_PERMISSION, ResponseMessage.NO_PERMISSION);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(result);
     }
+
 }

@@ -2,6 +2,7 @@ package com.morecommit.carrotEz.controller;
 
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
+import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.article.*;
 import com.morecommit.carrotEz.entity.ArticleReply;
@@ -85,12 +86,12 @@ public class ArticleController {
 
     @PatchMapping("/article/{articleId}/update")
     public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(
-            @RequestBody @Valid PatchArticleResponseDto requestBody,
-            @PathVariable("articleId") Integer articleId,
+            @RequestBody @Valid PatchArticleRequestDto requestBody,
+            @RequestPart(value = "articleImageList", required = false) List<MultipartFile> file,
+            @PathVariable("articleId") Long articleId,
             @AuthenticationPrincipal String email
     ){
-        ResponseEntity<? super PatchArticleResponseDto> response = articleService.patchArticleUpdate(requestBody, articleId, email);
-        return articleService.patchArticleUpdate(requestBody, articleId, email);
+        return articleService.patchArticleUpdate(requestBody, articleId, email, file);
     }
 
 

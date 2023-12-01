@@ -13,6 +13,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findTop6ByCreatedByOrderByRegTimeDesc(String createdBy);
     List<Article> findAll();
 
+
+
     List<Article> findByOrderByRegTimeDesc();
     List<Article> findTop9ByOrderByRegTimeDesc();
 }

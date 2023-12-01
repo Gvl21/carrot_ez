@@ -1,6 +1,7 @@
 package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
+import com.morecommit.carrotEz.dto.response.article.PatchArticleResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity @Getter @Setter @ToString
 @NoArgsConstructor
 public class Article extends BaseEntity{
+
     @Id
     @Column(name = "article_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

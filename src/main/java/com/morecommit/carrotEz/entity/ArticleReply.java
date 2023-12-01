@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// 댓글
 
 @Entity @NoArgsConstructor
 @Getter @AllArgsConstructor

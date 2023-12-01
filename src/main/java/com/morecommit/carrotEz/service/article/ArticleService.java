@@ -2,6 +2,7 @@ package com.morecommit.carrotEz.service.article;
 
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
+import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
 import com.morecommit.carrotEz.dto.response.article.*;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,5 @@ public interface ArticleService {
 
     ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain();
 
-    ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleResponseDto requestBody, Integer articleId, String email);
+    ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto requestBody, Long articleId, String email, List<MultipartFile>file);
 }

@@ -4,6 +4,8 @@ import com.morecommit.carrotEz.common.ArticleList;
 import com.morecommit.carrotEz.common.ReplyListItem;
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
+import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
+import com.morecommit.carrotEz.dto.request.article.PostBoardRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.article.*;
 import com.morecommit.carrotEz.entity.Article;
@@ -127,14 +129,35 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseEntity<? super GetArticleResponseDto> getArticleupdate(GetArticleResponseDto requestBody, Integer articleId, String email) {
+    public ResponseEntity<? super PatchArticleResponseDto>patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile>file) {
         try{
-            boolean existedUser = memberRepository.existsByEmail(email);
-            if (!existedUser) return GetArticleResponseDto.notExistBoard();
-        } catch (Exception exception) {
+            Member member = memberRepository.findByEmail(email);
+            if (member == null) return PatchArticleResponseDto.notExistUser();
 
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return PatchArticleResponseDto.notExistUser();
+
+            boolean equalWriter = article.getCreatedBy().equals(email);
+            if (!equalWriter) return PatchArticleResponseDto.noPermission();
+
+            List<ArticleImage> articleImages = new ArrayList<>();
+            List<String> articleImageUrls = dto.getImageUrls();
+
+            for (MultipartFile image : file) {
+                String uploadedImage = fileService.upload(image);
+                ArticleImage articleImage = new ArticleImage(uploadedImage);
+                articleImages.add(articleImage);
+                articleImageUrls.add(uploadedImage);
+            }
+           article.setArticleImageList(articleImageUrls);
+            articleImageRepository.deleteById(articleId);
+            articleImageRepository.saveAll(articleImages);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
         }
-        return null;
+        return PatchArticleResponseDto.success();
     }
 
     @Override
