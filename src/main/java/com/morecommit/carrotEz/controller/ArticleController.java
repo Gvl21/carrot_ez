@@ -86,7 +86,7 @@ public class ArticleController {
 
     @PatchMapping("/article/{articleId}/update")
     public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(
-            @RequestBody @Valid PatchArticleRequestDto requestBody,
+            @ModelAttribute @Valid PatchArticleRequestDto requestBody,
             @RequestPart(value = "articleImageList", required = false) List<MultipartFile> file,
             @PathVariable("articleId") Long articleId,
             @AuthenticationPrincipal String email
