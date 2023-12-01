@@ -21,6 +21,7 @@ public class GetArticleResponseDto extends ResponseDto {
     private final String title;
     private final String content;
     private final String area;
+    private final String category;
     private final List<ArticleImage> articleImageList;
     private final String regTime;
     private final String updateTime;
@@ -35,6 +36,7 @@ public class GetArticleResponseDto extends ResponseDto {
         this.title = article.getTitle();
         this.content = article.getContent();
         this.area = article.getArea();
+        this.category = article.getCategory();
         this.replyCount = article.getReplyCount();
         this.articleImageList = articleImageList;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

@@ -8,5 +8,6 @@ import java.util.List;
 public interface ArticleImageRepository extends JpaRepository<ArticleImage, Long> {
 
     List<ArticleImage> findByArticleId(Long articleId);
+    List<ArticleImage> deleteByArticleId(Long articleId);
 
 }

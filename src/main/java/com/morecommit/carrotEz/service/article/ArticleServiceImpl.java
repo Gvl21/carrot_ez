@@ -5,7 +5,6 @@ import com.morecommit.carrotEz.common.ReplyListItem;
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
-import com.morecommit.carrotEz.dto.request.article.PostBoardRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.article.*;
 import com.morecommit.carrotEz.entity.Article;
@@ -118,7 +117,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain() {
         try {
-            List<Article> articles = articleRepository.findTop9ByOrderByRegTimeDesc();
+            List<Article> articles = articleRepository.findTop6ByOrderByRegTimeDesc();
             List<ArticleList> articleListWithMemberInfo = ArticleList.getListWithMemberInfo(articles, memberRepository);
             return GetArticleAllResponseDto.success(articleListWithMemberInfo);
 
@@ -129,7 +128,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseEntity<? super PatchArticleResponseDto>patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile>file) {
+    public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile>file) {
         try{
             Member member = memberRepository.findByEmail(email);
             if (member == null) return PatchArticleResponseDto.notExistUser();
@@ -140,17 +139,21 @@ public class ArticleServiceImpl implements ArticleService {
             boolean equalWriter = article.getCreatedBy().equals(email);
             if (!equalWriter) return PatchArticleResponseDto.noPermission();
 
+            article.patch(dto);
+            articleRepository.save(article);
+
             List<ArticleImage> articleImages = new ArrayList<>();
             List<String> articleImageUrls = dto.getImageUrls();
 
             for (MultipartFile image : file) {
                 String uploadedImage = fileService.upload(image);
                 ArticleImage articleImage = new ArticleImage(uploadedImage);
+                articleImage.setArticleId(articleId);
                 articleImages.add(articleImage);
                 articleImageUrls.add(uploadedImage);
             }
            article.setArticleImageList(articleImageUrls);
-            articleImageRepository.deleteById(articleId);
+            articleImageRepository.deleteByArticleId(articleId);
             articleImageRepository.saveAll(articleImages);
 
         } catch (Exception exception) {
