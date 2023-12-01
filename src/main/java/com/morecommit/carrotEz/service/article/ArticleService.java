@@ -22,4 +22,6 @@ public interface ArticleService {
     ResponseEntity<? super GetArticleReplyResponseDto> getArticleReply(Long articleId);
 
     ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain();
+
+    ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleResponseDto requestBody, Integer articleId, String email);
 }

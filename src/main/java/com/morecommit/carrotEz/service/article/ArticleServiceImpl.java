@@ -35,6 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleReplyRepository articleReplyRepository;
     private final FileService fileService;
 
+
     @Override
     public ResponseEntity<? super ArticleResponseDto> saveArticle(ArticleRequestDto dto, String email, List<MultipartFile> file) {
         try {
@@ -124,6 +125,18 @@ public class ArticleServiceImpl implements ArticleService {
             return ResponseDto.databaseError();
         }
     }
+
+    @Override
+    public ResponseEntity<? super GetArticleResponseDto> getArticleupdate(GetArticleResponseDto requestBody, Integer articleId, String email) {
+        try{
+            boolean existedUser = memberRepository.existsByEmail(email);
+            if (!existedUser) return GetArticleResponseDto.notExistBoard();
+        } catch (Exception exception) {
+
+        }
+        return null;
+    }
+
     @Override
     public ResponseEntity<? super GetArticleResponseDto> getArticle(Long articleId) {
         Article article = null;
@@ -189,5 +202,6 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return GetArticleReplyResponseDto.success(replyList);
     }
+
 
 }

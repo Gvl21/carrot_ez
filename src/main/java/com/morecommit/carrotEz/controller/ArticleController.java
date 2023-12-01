@@ -83,6 +83,16 @@ public class ArticleController {
         return articleService.getArticle(articleId);
     }
 
+    @PatchMapping("/article/{articleId}/update")
+    public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(
+            @RequestBody @Valid PatchArticleResponseDto requestBody,
+            @PathVariable("articleId") Integer articleId,
+            @AuthenticationPrincipal String email
+    ){
+        ResponseEntity<? super PatchArticleResponseDto> response = articleService.patchArticleUpdate(requestBody, articleId, email);
+        return articleService.patchArticleUpdate(requestBody, articleId, email);
+    }
+
 
 
 
