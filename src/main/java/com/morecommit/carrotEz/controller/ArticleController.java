@@ -3,9 +3,7 @@ package com.morecommit.carrotEz.controller;
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
-import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.article.*;
-import com.morecommit.carrotEz.entity.ArticleReply;
 import com.morecommit.carrotEz.service.article.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -91,10 +89,18 @@ public class ArticleController {
             @PathVariable("articleId") Long articleId,
             @AuthenticationPrincipal String email
     ){
+        if (file == null || file.isEmpty()){
+            return articleService.patchArticleUpdate(requestBody, articleId, email);
+        }
+
         return articleService.patchArticleUpdate(requestBody, articleId, email, file);
     }
-
-
-
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<? super DeleteArticleResponseDto> deleteArticle(
+            @PathVariable("articleId") Long articleId,
+            @AuthenticationPrincipal String email
+    ) {
+        return articleService.deleteBoard(articleId, email);
+    }
 
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ArticleReplyRepository extends JpaRepository<ArticleReply, Long> {
     List<ArticleReply> findByArticleIdOrderByRegTimeAsc(Long articleId);
+
+    void deleteByArticleId(Long articleId);
 }
