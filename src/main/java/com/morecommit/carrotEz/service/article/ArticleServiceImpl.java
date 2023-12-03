@@ -297,6 +297,7 @@ public class ArticleServiceImpl implements ArticleService {
                 Member member = memberRepository.findByEmail(reply.getCreatedBy());
                 item.setNickname(member.getNickname());
                 item.setMemberImgUrl(member.getMemberImageUrl());
+                item.setEmail(member.getEmail());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 item.setRegTime(reply.getRegTime().format(formatter));
                 replyList.add(item);
