@@ -25,4 +25,8 @@ public interface ArticleService {
     ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain();
 
     ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto requestBody, Long articleId, String email, List<MultipartFile>file);
+
+    ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto requestBody, Long articleId, String email);
+
+    ResponseEntity<? super DeleteArticleResponseDto> deleteBoard(Long articleId, String email);
 }

@@ -5,10 +5,12 @@ import com.morecommit.carrotEz.common.ResponseMessage;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.entity.Article;
 import com.morecommit.carrotEz.entity.Member;
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -19,6 +21,8 @@ public class GetMemberDetailDto extends ResponseDto {
     private final String category;
     private final String memberImageUrl;
     private final List<Article> createdArticleList;
+
+
 
     public GetMemberDetailDto(String code, String message, Member member, List<Article> createdArticleList) {
         super(code, message);

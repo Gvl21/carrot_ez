@@ -2,10 +2,10 @@ package com.morecommit.carrotEz.service.article;
 
 import com.morecommit.carrotEz.common.ArticleList;
 import com.morecommit.carrotEz.common.ReplyListItem;
+import com.morecommit.carrotEz.dto.request.article.ArticleImageRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleReplyRequestDto;
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
-import com.morecommit.carrotEz.dto.request.article.PostBoardRequestDto;
 import com.morecommit.carrotEz.dto.response.ResponseDto;
 import com.morecommit.carrotEz.dto.response.article.*;
 import com.morecommit.carrotEz.entity.Article;
@@ -118,7 +118,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain() {
         try {
-            List<Article> articles = articleRepository.findTop9ByOrderByRegTimeDesc();
+            List<Article> articles = articleRepository.findTop6ByOrderByRegTimeDesc();
             List<ArticleList> articleListWithMemberInfo = ArticleList.getListWithMemberInfo(articles, memberRepository);
             return GetArticleAllResponseDto.success(articleListWithMemberInfo);
 
@@ -129,7 +129,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseEntity<? super PatchArticleResponseDto>patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile>file) {
+    public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile> file) {
         try{
             Member member = memberRepository.findByEmail(email);
             if (member == null) return PatchArticleResponseDto.notExistUser();
@@ -140,17 +140,35 @@ public class ArticleServiceImpl implements ArticleService {
             boolean equalWriter = article.getCreatedBy().equals(email);
             if (!equalWriter) return PatchArticleResponseDto.noPermission();
 
-            List<ArticleImage> articleImages = new ArrayList<>();
-            List<String> articleImageUrls = dto.getImageUrls();
+            article.patch(dto);
+            articleRepository.save(article);
 
+            List<ArticleImage> articleImages = new ArrayList<>();
+            List<String> articleImageUrls = new ArrayList<>();
+
+            List<ArticleImageRequestDto> imageUrls = dto.getImageUrls();
+
+            for (ArticleImageRequestDto imageUrl : imageUrls) {
+                ArticleImage articleImage = new ArticleImage(imageUrl.getImage());
+                articleImage.setArticleId(articleId);
+                articleImages.add(articleImage);
+                articleImageUrls.add(imageUrl.getImage());
+
+            }
+
+            // 파일 형태 -> url로 변환후
+            // article의 엔티티안에 articleUrl 배열 저장
+            // articleImage 엔티티에 이미지별 객체저장
             for (MultipartFile image : file) {
-                String uploadedImage = fileService.upload(image);
-                ArticleImage articleImage = new ArticleImage(uploadedImage);
+                String uploadedImage = fileService.upload(image);       //
+                ArticleImage articleImage = new ArticleImage(uploadedImage);        // 파일 -> 저장후 url문자열로 반환
+                articleImage.setArticleId(articleId);
                 articleImages.add(articleImage);
                 articleImageUrls.add(uploadedImage);
             }
-           article.setArticleImageList(articleImageUrls);
-            articleImageRepository.deleteById(articleId);
+
+            article.setArticleImageList(articleImageUrls);
+            articleImageRepository.deleteByArticleId(articleId);
             articleImageRepository.saveAll(articleImages);
 
         } catch (Exception exception) {
@@ -159,6 +177,70 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return PatchArticleResponseDto.success();
     }
+    @Override
+    public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email) {
+        try{
+            Member member = memberRepository.findByEmail(email);
+            if (member == null) return PatchArticleResponseDto.notExistUser();
+
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return PatchArticleResponseDto.notExistUser();
+
+            boolean equalWriter = article.getCreatedBy().equals(email);
+            if (!equalWriter) return PatchArticleResponseDto.noPermission();
+
+            article.patch(dto);
+            articleRepository.save(article);
+
+            List<ArticleImage> articleImages = new ArrayList<>();
+            List<String> articleImageUrls = new ArrayList<>();
+
+            List<ArticleImageRequestDto> imageUrls = dto.getImageUrls();
+
+            for (ArticleImageRequestDto imageUrl : imageUrls) {
+                ArticleImage articleImage = new ArticleImage(imageUrl.getImage());
+                articleImage.setArticleId(articleId);
+                articleImages.add(articleImage);
+                articleImageUrls.add(imageUrl.getImage());
+
+            }
+            article.setArticleImageList(articleImageUrls);
+            articleImageRepository.deleteByArticleId(articleId);
+            articleImageRepository.saveAll(articleImages);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PatchArticleResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteArticleResponseDto> deleteBoard(Long articleId, String email) {
+        try {
+
+            Member member = memberRepository.findByEmail(email);
+            if (member == null) return DeleteArticleResponseDto.notExistUser();
+
+            Article article = articleRepository.findById(articleId).orElse(null);
+            if (article == null) return DeleteArticleResponseDto.notExistBoard();
+
+            boolean equalWriter = article.getCreatedBy().equals(email);
+            if (!equalWriter) return DeleteArticleResponseDto.noPermission();
+
+            articleReplyRepository.deleteByArticleId(articleId);
+            articleImageRepository.deleteByArticleId(articleId);
+            articleRepository.delete(article);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return DeleteArticleResponseDto.success();
+
+    }
+
 
     @Override
     public ResponseEntity<? super GetArticleResponseDto> getArticle(Long articleId) {
@@ -215,6 +297,7 @@ public class ArticleServiceImpl implements ArticleService {
                 Member member = memberRepository.findByEmail(reply.getCreatedBy());
                 item.setNickname(member.getNickname());
                 item.setMemberImgUrl(member.getMemberImageUrl());
+                item.setEmail(member.getEmail());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 item.setRegTime(reply.getRegTime().format(formatter));
                 replyList.add(item);
