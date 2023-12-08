@@ -36,7 +36,6 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        // ?????????????????????????????
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -73,10 +72,7 @@ public class SecurityConfig {
                 })
         );
         http.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-
         return http.build();
-
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -85,15 +81,6 @@ public class SecurityConfig {
     // 해시 함수를 이용한 비밀번호 암호화
 
 
-//    class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint{
-//        @Override
-//        public void commence(HttpServletRequest request, HttpServletResponse response,
-//                             AuthenticationException authException) throws IOException, ServletException {
-//            response.setContentType("application/json");
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.getWriter().write("{\"code\" : \"AF\", \"message\" : \"Authorization Failed.\"}");
-//        }
-//    }
 
 }
 

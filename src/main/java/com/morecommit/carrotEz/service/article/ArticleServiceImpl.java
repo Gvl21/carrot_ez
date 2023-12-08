@@ -115,6 +115,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
     }
+
     @Override
     public ResponseEntity<? super GetArticleAllResponseDto> getArticleListToMain() {
         try {
@@ -130,7 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email, List<MultipartFile> file) {
-        try{
+        try {
             Member member = memberRepository.findByEmail(email);
             if (member == null) return PatchArticleResponseDto.notExistUser();
 
@@ -141,21 +142,19 @@ public class ArticleServiceImpl implements ArticleService {
             if (!equalWriter) return PatchArticleResponseDto.noPermission();
 
             article.patch(dto);
-            articleRepository.save(article);
 
             List<ArticleImage> articleImages = new ArrayList<>();
             List<String> articleImageUrls = new ArrayList<>();
 
-            List<ArticleImageRequestDto> imageUrls = dto.getImageUrls();
-
-            for (ArticleImageRequestDto imageUrl : imageUrls) {
-                ArticleImage articleImage = new ArticleImage(imageUrl.getImage());
-                articleImage.setArticleId(articleId);
-                articleImages.add(articleImage);
-                articleImageUrls.add(imageUrl.getImage());
-
+            if (!(dto.getImageUrls() == null || dto.getImageUrls().isEmpty())) {
+                List<ArticleImageRequestDto> imageUrls = dto.getImageUrls();
+                for (ArticleImageRequestDto imageUrl : imageUrls) {
+                    ArticleImage articleImage = new ArticleImage(imageUrl.getImage());
+                    articleImage.setArticleId(articleId);
+                    articleImages.add(articleImage);
+                    articleImageUrls.add(imageUrl.getImage());
+                }
             }
-
             // 파일 형태 -> url로 변환후
             // article의 엔티티안에 articleUrl 배열 저장
             // articleImage 엔티티에 이미지별 객체저장
@@ -168,6 +167,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
 
             article.setArticleImageList(articleImageUrls);
+            articleRepository.save(article);
             articleImageRepository.deleteByArticleId(articleId);
             articleImageRepository.saveAll(articleImages);
 
@@ -177,9 +177,10 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return PatchArticleResponseDto.success();
     }
+
     @Override
     public ResponseEntity<? super PatchArticleResponseDto> patchArticleUpdate(PatchArticleRequestDto dto, Long articleId, String email) {
-        try{
+        try {
             Member member = memberRepository.findByEmail(email);
             if (member == null) return PatchArticleResponseDto.notExistUser();
 
@@ -190,21 +191,26 @@ public class ArticleServiceImpl implements ArticleService {
             if (!equalWriter) return PatchArticleResponseDto.noPermission();
 
             article.patch(dto);
-            articleRepository.save(article);
+            if (dto.getImageUrls() == null || dto.getImageUrls().isEmpty()) {
+                article.setArticleImageList(null);
+                articleRepository.save(article);
+                articleImageRepository.deleteByArticleId(articleId);
+                return PatchArticleResponseDto.success();
+            }
 
             List<ArticleImage> articleImages = new ArrayList<>();
             List<String> articleImageUrls = new ArrayList<>();
 
             List<ArticleImageRequestDto> imageUrls = dto.getImageUrls();
-
             for (ArticleImageRequestDto imageUrl : imageUrls) {
                 ArticleImage articleImage = new ArticleImage(imageUrl.getImage());
                 articleImage.setArticleId(articleId);
                 articleImages.add(articleImage);
                 articleImageUrls.add(imageUrl.getImage());
-
             }
+
             article.setArticleImageList(articleImageUrls);
+            articleRepository.save(article);
             articleImageRepository.deleteByArticleId(articleId);
             articleImageRepository.saveAll(articleImages);
 

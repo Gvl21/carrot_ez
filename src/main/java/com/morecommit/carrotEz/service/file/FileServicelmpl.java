@@ -28,20 +28,20 @@ public class FileServicelmpl implements FileService {
     // 업로드
     @Override
     public String upload(MultipartFile file) {
-        if(file.isEmpty()) return null; // 파일이 없을 때
+        if (file.isEmpty()) return null; // 파일이 없을 때
         String originFileName = file.getOriginalFilename();
         String extension = originFileName.substring(originFileName.lastIndexOf("."));
         String uuid = UUID.randomUUID().toString();
         String saveFileName = uuid + extension;
         String savePath = filePath + saveFileName;
-        try{
+        try {
             file.transferTo(new File(savePath));
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
 
-        String url = fileUrl + saveFileName;
+        String url = "/file/" + saveFileName;
 
         return url;
     }
@@ -49,13 +49,14 @@ public class FileServicelmpl implements FileService {
     @Override
     public Resource getImage(String fileName) {
         Resource resource = null;
-        try{
-            resource = new UrlResource("file:" + filePath + fileName);
-        } catch (Exception exception){
+        try {
+            resource = new UrlResource("file://" + filePath + fileName);
+            // file:/home/ec2-user/fileUpload/e364731d-a698-4dc8-8bbc-7d054dee06d1.png 호출
+
+        } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
         return resource;
     }
-
-    }
+}

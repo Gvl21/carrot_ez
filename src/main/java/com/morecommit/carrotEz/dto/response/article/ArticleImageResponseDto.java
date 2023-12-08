@@ -1,7 +1,6 @@
 package com.morecommit.carrotEz.dto.response.article;
 
 import com.morecommit.carrotEz.entity.ArticleImage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
