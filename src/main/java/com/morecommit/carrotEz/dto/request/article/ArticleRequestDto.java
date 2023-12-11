@@ -41,10 +41,4 @@ public class ArticleRequestDto {
         return article;
     }
 
-    // 게시글 수정 시에 사용할 메서드 entity -> Dto
-//    public ArticleRequestDto of(Article article) {return modelMapper.map(article, ArticleRequestDto.class);}
-
-
-
-
 }

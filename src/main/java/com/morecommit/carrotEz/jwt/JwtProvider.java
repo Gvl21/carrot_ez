@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-    SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final MemberRepository memberRepository;
+    SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String create(String email) {
         // 사용자의 역할 정보 조회 (예시: 회원 정보에서 Role 가져오기)

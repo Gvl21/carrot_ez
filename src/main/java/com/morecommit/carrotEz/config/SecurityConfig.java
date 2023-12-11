@@ -56,6 +56,8 @@ public class SecurityConfig {
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/main-list")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/findFriend-list")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/members/**")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/ws/**")).permitAll()
+
                                 .anyRequest().authenticated());
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
         // => 로그인 페이지 리다이렉트(302)
@@ -71,7 +73,9 @@ public class SecurityConfig {
                     }
                 })
         );
+
         http.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
     @Bean
