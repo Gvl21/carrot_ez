@@ -40,54 +40,54 @@
         
         회원가입 성공 시
         
-        alret 창을 이용해 ‘(회원가입 시 이름)님 환영합니다. ‘ 라고 한다.
+        alert 창을 이용해 ‘(회원가입 시 이름)님 환영합니다. ‘ 라고 한다.
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/e669194d-61e9-4bf5-b9c6-3300b5cfd60c)
         
-    - 로그인 페이지
+   - 로그인 페이지
     
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/d3b0425f-8262-47fb-a816-2a78f5847e1a)
     
-    로그인 성공 시
+   로그인 성공 시
     
-    alret 창을 사용해 로그인 완료라는 창을 띄움
+   alert 창을 사용해 로그인 완료라는 창을 띄움
     
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/bf829dc2-5cef-4ce7-a67d-b1ade387e9ce)
     
-    Header 부분 모든 페이지 활성화
+   Header 부분 모든 페이지 활성화
     
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/0d5c7bb2-7084-437d-ac1f-e1d8364b6847)
     
-    - 친구찾기
+   - 친구찾기
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/1f10bae7-9ca1-4ff9-8e77-a13f3e8dcf73)
         
-        지역, 카테고리를 선택하지 않아도 검색만 할 시 제목에 해당되는 내용만 검색 가능 하게 설정
+   지역, 카테고리를 선택하지 않아도 검색만 할 시 제목에 해당되는 내용만 검색 가능 하게 설정
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/5cd02edd-e810-478e-adce-03c46dd1e0c2)
         
-    - 글쓰기
+   - 글쓰기
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/4f78110c-694d-4b56-8c90-61578bb44135)
         
-        게시글을 작성하고 나면
+   게시글을 작성하고 나면
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/e3b10dbd-4441-4591-87ef-5cef0b8a9b37)
         
-    - 게시글 수정 및 댓글 작성 가능(해당 게시글 클릭하고 수정하기 버튼을 누르면 수정 가능)
+   - 게시글 수정 및 댓글 작성 가능(해당 게시글 클릭하고 수정하기 버튼을 누르면 수정 가능)
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/15044959-d113-4dfb-acad-d7d2a125b6ff)
         
-        - 게시글 수정 ⇒ 작성하기 버튼 : 새로운 게시글 작성
+   - 게시글 수정 ⇒ 작성하기 버튼 : 새로운 게시글 작성
                                  삭제하기 버튼 : 해당 게시글 삭제
                                  취소하기 버튼 : 수정 취소
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/8aed81fa-c153-4dfc-a88f-ba0e288cb5d3)
         
-    - 댓글 기능 구현
+   - 댓글 기능 구현
         
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/20201dd9-aa2d-4169-8f28-9bd067104de6)
 
-    - 회원 정보 조회 기능 구현
+   - 회원 정보 조회 기능 구현
 
     
