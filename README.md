@@ -89,5 +89,6 @@
 ![image](https://github.com/Gvl21/carrot_ez/assets/137303698/20201dd9-aa2d-4169-8f28-9bd067104de6)
 
    - 회원 정보 조회 기능 구현
+![image](https://github.com/Gvl21/carrot_ez/assets/137303698/bdbd612c-1859-4ccc-95d5-a66e0a0cc53d)
 
     
