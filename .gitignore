@@ -38,3 +38,4 @@ out/
 
 # git 저장소에 제외
 src/main/resources/application-prod.properties
+/src/main/resources/application-dev.properties
