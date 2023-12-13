@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/file")
 @RequiredArgsConstructor
 public class FileController {
-
+//http://ec2-13-209-42-166.ap-northeast-2.compute.amazonaws.com/file/e364731d-a698-4dc8-8bbc-7d054dee06d1.png
     private final FileService fileService;
 
     @PostMapping("/upload")
@@ -35,7 +35,6 @@ public class FileController {
         Resource resource = fileService.getImage(fileName);
 
         if (resource == null) {
-            // 이미지를 찾을 수 없는 경우 어떻게하는게 좋을까... 디폴트 이미지를 구현할 수 있도록 해야겠다  --김형수
             return ResponseEntity.notFound().build();
         }
 

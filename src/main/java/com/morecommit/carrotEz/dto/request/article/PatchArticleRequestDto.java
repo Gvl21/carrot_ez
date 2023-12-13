@@ -1,6 +1,7 @@
 package com.morecommit.carrotEz.dto.request.article;
 
 import com.morecommit.carrotEz.entity.ArticleImage;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public class PatchArticleRequestDto {
     @NotBlank
     private String content;
 
-    @NotNull
+    @Nullable
     private List<ArticleImageRequestDto> imageUrls;
 
     @NotBlank

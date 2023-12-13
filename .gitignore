@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# git 저장소에 제외
+src/main/resources/application-prod.properties
