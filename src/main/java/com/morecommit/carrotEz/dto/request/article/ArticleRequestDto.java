@@ -1,15 +1,11 @@
 package com.morecommit.carrotEz.dto.request.article;
 
-import com.morecommit.carrotEz.dto.response.article.ArticleResponseDto;
 import com.morecommit.carrotEz.entity.Article;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -44,4 +40,5 @@ public class ArticleRequestDto {
         article.setReplyCount(0);
         return article;
     }
+
 }

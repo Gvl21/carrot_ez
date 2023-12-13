@@ -71,6 +71,10 @@ dependencies {
 
 
 	implementation  'org.glassfish.jaxb:jaxb-runtime'
+
+	// 웹소켓
+	implementation 'org.springframework.boot:spring-boot-starter-websocket:3.2.0'
+
 }
 
 tasks.named('test') {

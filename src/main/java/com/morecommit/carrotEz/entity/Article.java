@@ -2,7 +2,6 @@ package com.morecommit.carrotEz.entity;
 
 import com.morecommit.carrotEz.dto.request.article.ArticleRequestDto;
 import com.morecommit.carrotEz.dto.request.article.PatchArticleRequestDto;
-import com.morecommit.carrotEz.dto.response.article.PatchArticleResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

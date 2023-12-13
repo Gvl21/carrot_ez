@@ -123,12 +123,4 @@ public class MemberService implements UserDetailsService{
         }
     }
 
-
-//    public TokenDto signin(MemberSignInDto memberSignInDto) {
-//        UsernamePasswordAuthenticationToken authenticationToken = memberSignInDto.toAuthentication();
-//
-//        Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-//
-//        return tokenProvider.generateTokenDto(authentication);
-//    }
 }

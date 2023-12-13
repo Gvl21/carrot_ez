@@ -21,7 +21,7 @@ public class WebConfig {
                 registry
                         .addMapping("/**")   // 모든 경로
                         .allowedMethods("*")           // 모든 method
-                        .allowedOrigins(frontendUrl); // 접근 가능 출처(리액트)
+                        .allowedOrigins(frontendUrl);// 접근 가능 출처(리액트)
             }
         };
     }

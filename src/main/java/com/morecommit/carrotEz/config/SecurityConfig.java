@@ -56,6 +56,8 @@ public class SecurityConfig {
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/main-list")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/article/findFriend-list")).permitAll()
                                 .requestMatchers(antMatcher(HttpMethod.GET,"/members/**")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET,"/ws/**")).permitAll()
+
                                 .anyRequest().authenticated());
         // 인증되지 않은 사용자가 들어왔을 때 예외처리
         // => 로그인 페이지 리다이렉트(302)
@@ -71,11 +73,10 @@ public class SecurityConfig {
                     }
                 })
         );
+
         http.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-
         return http.build();
-
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -84,15 +85,6 @@ public class SecurityConfig {
     // 해시 함수를 이용한 비밀번호 암호화
 
 
-//    class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint{
-//        @Override
-//        public void commence(HttpServletRequest request, HttpServletResponse response,
-//                             AuthenticationException authException) throws IOException, ServletException {
-//            response.setContentType("application/json");
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.getWriter().write("{\"code\" : \"AF\", \"message\" : \"Authorization Failed.\"}");
-//        }
-//    }
 
 }
 

@@ -2,7 +2,6 @@ package com.morecommit.carrotEz.dto.request.article;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter

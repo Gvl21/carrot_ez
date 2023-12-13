@@ -9,7 +9,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -25,8 +24,8 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-    SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final MemberRepository memberRepository;
+    SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String create(String email) {
         // 사용자의 역할 정보 조회 (예시: 회원 정보에서 Role 가져오기)

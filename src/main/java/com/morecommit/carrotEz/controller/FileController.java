@@ -9,12 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-//
 @RestController
 @RequestMapping("/file")
 @RequiredArgsConstructor
 public class FileController {
-//http://ec2-13-209-42-166.ap-northeast-2.compute.amazonaws.com/file/e364731d-a698-4dc8-8bbc-7d054dee06d1.png
     private final FileService fileService;
 
     @PostMapping("/upload")
@@ -23,12 +21,6 @@ public class FileController {
         return url;
     }
 
-//    @GetMapping(value = "{fileName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
-//    public Resource getImage(
-//            @PathVariable("fileName") String fileName) {
-//        Resource resource = fileService.getImage(fileName);
-//        return resource;
-//    }
 
     @GetMapping(value = "/{fileName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) {

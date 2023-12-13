@@ -1,10 +1,7 @@
 package com.morecommit.carrotEz.dto.request.article;
 
-import com.morecommit.carrotEz.entity.ArticleImage;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
